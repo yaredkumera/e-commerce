@@ -1,5 +1,5 @@
 import SignupForm from "./SignupForm";
-import NavLinks from "../common/NavLinks/NavLinks";
+import NavLinks from "../common/NavLinks";
  
 function MainSignUP() {
   return (

@@ -1,5 +1,5 @@
  import LoginForm from "./LoginForm"
- import NavLinks from "../common/NavLinks/NavLinks"
+ import NavLinks from "../common/NavLinks"
 function MainLogin() {
   return (
     <div>

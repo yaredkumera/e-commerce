@@ -1,6 +1,6 @@
 import { FiUser, FiHeart, FiShoppingCart, FiSearch } from "react-icons/fi"
 import { Link ,NavLink} from "react-router-dom"
-function NavLinks({bool}) {
+function NavLinks({bool,hide}) {
   return (
     <div className="flex items-center justify-between px-16 py-4 border-b border-gray-300">
        <Link to="/" className="text-2xl font-bold">Exclusive</Link> 
@@ -33,7 +33,7 @@ function NavLinks({bool}) {
        { bool!==true&&<div className="flex items-center gap-4">
           <Link to="/wishlist"><FiHeart className="text-xl text-black" /></Link>
           <Link to="/cart"><FiShoppingCart className="text-xl text-black" /></Link>
-          <Link to="/account"><FiUser className="text-xl text-black" /></Link>
+          {hide!==1&&<Link to="/account"><FiUser className="text-xl text-black" /></Link>}
         </div>}
       </div>
     </div>

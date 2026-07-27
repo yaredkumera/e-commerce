@@ -9,9 +9,9 @@ import MainLogin from "./Login/MainLogin"
 import MainHome from "./Home/MainHome"
 export default function App(){ 
   return (
-    <div>
+    <div >
       <Header/>
-<Routes>
+<Routes >
   <Route path="/" element={<MainHome/>}/>
 <Route path="/signUp" element={<MainSignUP/>}/>
 <Route path="/about" element={<BodyAbout/>}/>

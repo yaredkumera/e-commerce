@@ -1,6 +1,6 @@
  import LinkPage from "../common/LinkPage"
  import OurStory from "./OurStory/ourStory"
- import NavLinks from "../common/NavLinks/NavLinks"
+ import NavLinks from "../common/NavLinks"
 import StateCard from "./OurStory/StateCard"
 import TeamPhoto from "./OurStory/TeamPhoto"
 import LastPart from "./OurStory/LastPart"

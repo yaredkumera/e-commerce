@@ -18,7 +18,7 @@ function HomeForm() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [hoveredIndex, setHoveredIndex] = useState(null)
   return (
-    <div className="grid md:grid-cols-[250px_1fr] gap-8 rounded-md overflow-hidden m-8">
+    <div className="grid md:grid-cols-[250px_1fr] gap-8 rounded-md overflow-hidden mx-10 my-8">
        <div className="divide-y divide-gray-200 py-2">
         {categories.map((cat, i) => (
           <div

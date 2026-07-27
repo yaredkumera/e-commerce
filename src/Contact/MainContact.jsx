@@ -1,5 +1,5 @@
 import LinkPage from "../common/LinkPage"
-import NavLinks from "../common/NavLinks/NavLinks"
+import NavLinks from "../common/NavLinks"
 import ContactForm from "./ContactForm"
 
 function MainContact() {

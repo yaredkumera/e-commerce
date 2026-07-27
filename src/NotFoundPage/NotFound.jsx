@@ -1,6 +1,6 @@
  import LinkPage from "../common/LinkPage"
  import BodyPage from "./bodyPage"
- import NavLinks from "../common/NavLinks/NavLinks"
+ import NavLinks from "../common/NavLinks"
 function NotFound() {
   return (
     <div>

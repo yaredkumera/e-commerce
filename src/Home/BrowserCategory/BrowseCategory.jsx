@@ -1,4 +1,4 @@
-import SectionHeader from "./common/SectionHeader"
+import SectionHeader from "../common/SectionHeader"
 import BrowserCard from "./BrowserCard"
 function BrowseCategory() {
 const items=[
