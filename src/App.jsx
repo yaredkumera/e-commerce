@@ -7,15 +7,27 @@ import { Route,Routes } from "react-router-dom"
 import MainSignUP from "./SignUp/MainSignUP"
 import MainLogin from "./Login/MainLogin"
 import MainHome from "./Home/MainHome"
+import CheckOut from "./CheckOut/CheckOut"
+import ManCart from "./Carts/ManCart"
+import MainProductDetail from "./ProductDetail/MainProductDetail"
+import MainAccount from "./Account/MainAccount"
 export default function App(){ 
   return (
     <div >
       <Header/>
+
 <Routes >
+  <Route path="/account" element={<MainAccount/>}/>
+  <Route path="/Product" element={<MainProductDetail/>}/>
   <Route path="/" element={<MainHome/>}/>
 <Route path="/signUp" element={<MainSignUP/>}/>
 <Route path="/about" element={<BodyAbout/>}/>
-<Route path="/contact" element={<MainContact/>}/>
+<Route path="/cart" element={<ManCart/>}/>
+<Route path="/checkout" element={<CheckOut/>}/>
+<Route path="/contact" element={<> 
+
+
+<MainContact/></>}/>
 <Route path="/login" element={<MainLogin/>}/>
  <Route path="*" element={<NotFound />} />
 </Routes>
