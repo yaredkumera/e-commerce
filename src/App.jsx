@@ -11,12 +11,13 @@ import CheckOut from "./CheckOut/CheckOut"
 import ManCart from "./Carts/ManCart"
 import MainProductDetail from "./ProductDetail/MainProductDetail"
 import MainAccount from "./Account/MainAccount"
+import MainWishList from "./WishList/MainWishList"
 export default function App(){ 
   return (
     <div >
       <Header/>
-
 <Routes >
+   <Route path="/wishlist" element={<MainWishList/>}/>
   <Route path="/account" element={<MainAccount/>}/>
   <Route path="/Product" element={<MainProductDetail/>}/>
   <Route path="/" element={<MainHome/>}/>
@@ -25,7 +26,6 @@ export default function App(){
 <Route path="/cart" element={<ManCart/>}/>
 <Route path="/checkout" element={<CheckOut/>}/>
 <Route path="/contact" element={<> 
-
 
 <MainContact/></>}/>
 <Route path="/login" element={<MainLogin/>}/>

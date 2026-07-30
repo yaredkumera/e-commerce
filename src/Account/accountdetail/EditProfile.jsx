@@ -14,7 +14,6 @@ function EditProfile() {
         <InputGenerator placeholder={`Md`} name={`First Name`} STYLE={Style} />
         <InputGenerator placeholder={`Rimel`} name={`Last Name`} STYLE={Style} />
       </div>
-
       <div className="grid gap-4 md:grid-cols-2">
         <InputGenerator placeholder={`tirtu@gmail.com`} name={`Email`} STYLE={Style} type="email" />
         <InputGenerator placeholder={`texsas,USA`} name={`Address`} STYLE={Style} />

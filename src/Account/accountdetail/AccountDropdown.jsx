@@ -22,7 +22,7 @@ function AccountDropdown() {
           </div>
         )}
       </div>
-      <div className="grid  gap-2 cursor-pointer">
+      <div className="grid  gap-2 cursor-pointer font-medium text-gray-600">
         <p onClick={() => setisOpen(3)}> My WishLists</p>
         
       </div>

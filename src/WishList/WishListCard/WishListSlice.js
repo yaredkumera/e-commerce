@@ -1,4 +1,9 @@
-const bestSellingProducts = [
+import { createSlice } from "@reduxjs/toolkit";
+
+const cartSlice = createSlice({
+  name: "wishlist",
+  initialState: {
+    items: [
   {
     name: "The north coat",
     price: 260,
@@ -34,7 +39,18 @@ const bestSellingProducts = [
     reviews: 65,
     image: "/BestSell4.png",
      id:4
+  }]
+  
   },
-]
+  reducers: {
+    addTowishlist: (state, action) => {
+      state.items.push(action.payload);
+    },
+    removeFromwishlist: (state, action) => {
+      state.items = state.items.filter(item => item.id !== action.payload);
+    },
+  },
+});
 
-export default bestSellingProducts
+export const { addTowishlist, removeFromwishlist } = cartSlice.actions;
+export default cartSlice.reducer;

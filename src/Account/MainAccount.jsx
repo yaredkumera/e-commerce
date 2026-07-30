@@ -6,7 +6,10 @@ function MainAccount() {
     <div>
        <NavLinks/>
        <div className="mx-20">
+        <div className="flex justify-between">
        <LinkPage items={[{label:`Home`,path:`/`},{label:`My Account `,path:`/myaccont`}]}/>
+       <p className="whitespace-nowrap px-16 py-9">wellcome{" "}<span className="text-red-500">Md Rimel!</span></p>
+       </div>
        <EditProfile/>
        </div>
     </div>

@@ -1,5 +1,7 @@
+import { useState } from "react";
 import ButtonCreator from "../../common/ButtonCreator";
 function CartForm({ data }) {
+  const[index,setIndex]=useState(null)
   return (
     <div className=" grid gap-8 w-full mt-7">
       <div className="grid grid-cols-4 py-2 px-4 items-center shadow-md">
@@ -9,7 +11,13 @@ function CartForm({ data }) {
         <p className="text-right">Subtotal</p>
       </div>
       {data.map((item, inedx) => (
-        <div className="grid grid-cols-4 gap-4 py-6 px-4 items-center shadow-lg rounded">
+        <div 
+        onMouseOver={()=>setIndex(inedx)}
+        onMouseLeave={()=>setIndex(null)}
+        className=" relative  grid grid-cols-4 gap-4 py-6 px-4 items-center shadow-lg rounded">
+         { index===inedx&& <p className="absolute top-2 left-2 text-white font-bold rounded-full w-6 h-6 bg-[#DB4444] flex items-center justify-center leading-none cursor-pointer z-10">
+      ✕
+    </p>}
           <div className="flex gap-3 items-center ">
             <img
               src={item.image}
