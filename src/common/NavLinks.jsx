@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 function NavLinks({bool,hide}) {
   const data=useSelector(state=>state.wishlist.items)
+  const cartdata=useSelector(state=>state.cartslice.items)
   return (
     <div className="flex items-center justify-between px-16 py-4 border-b border-gray-300">
        <Link to="/" className="text-2xl font-bold">Exclusive</Link> 
@@ -44,7 +45,15 @@ function NavLinks({bool,hide}) {
     )}
   </div>
 </Link>
-          <Link to="/cart"><FiShoppingCart className="text-xl text-black" /></Link>
+          <Link to="/cart">  <div className="relative">
+    <FiShoppingCart className="w-6 h-6" />
+    {cartdata.length > 0 && (
+      <span className="absolute -top-2 -right-2 bg-[#DB4444] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        {cartdata.length}
+      </span>
+    )}
+  </div>
+</Link>
           {hide!==1&&<Link to="/account"><FiUser className="text-xl text-black" /></Link>}
         </div>}
       </div>

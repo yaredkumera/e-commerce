@@ -9,7 +9,7 @@ const cartSlice = createSlice({
     price: 260,
     oldPrice: 360,
     rating: 5,
-    id:1,
+    id:13,
     reviews: 65,
     image: "/BestSell1.png",
   },
@@ -19,7 +19,7 @@ const cartSlice = createSlice({
     oldPrice: 1160,
     rating: 4,
     reviews: 65,
-     id:2,
+    id:14,
     image: "/BestSell2.png",
   },
   {
@@ -29,7 +29,7 @@ const cartSlice = createSlice({
     rating: 4,
     reviews: 65,
     image: "/BestSell3.png",
-     id:3,
+    id:15,
   },
   {
     name: "Small BookShelf",
@@ -38,7 +38,7 @@ const cartSlice = createSlice({
     rating: 5,
     reviews: 65,
     image: "/BestSell4.png",
-     id:4
+    id:16,
   }]
   
   },

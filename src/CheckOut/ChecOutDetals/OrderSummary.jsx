@@ -1,3 +1,5 @@
+
+import { useSelector } from "react-redux";
 function OrderItem({ image, name, price }) {
   return (
     <div className="flex justify-between items-center mb-6">
@@ -11,18 +13,15 @@ function OrderItem({ image, name, price }) {
 }
 
 function OrderSummary() {
-  let items = [
-    { name: "LCD Monitor", price: 650, image: "/Checkout1.png" },
-    { name: "HI Gamepad", price: 1100, image: "/Checkout2.png" },
-  ];
+  const cartdata=useSelector(state=>state.cartslice.items)
 
-  let subtotal = items.reduce((sum, item) => sum + item.price, 0);
+  let subtotal = cartdata.reduce((sum, item) => sum + item.price*item.quantity, 0);
   let shipping = 0; 
   let total = subtotal + shipping;
 
   return (
     <div className="grid gap-4 ">
-      {items.map((item, i) => (
+      {cartdata.map((item, i) => (
         <OrderItem key={i} {...item} />
       ))}
 

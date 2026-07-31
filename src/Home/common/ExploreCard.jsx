@@ -1,23 +1,47 @@
 import { useState } from "react"
-
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { addToCart } from "../../Carts/CartsDetal/cartsSlice";
+import {  useDispatch,useSelector} from "react-redux";
+import { addTowishlist,removeFromwishlist } from "../../WishList/WishListCard/WishListSlice";
 function ExploreCard({data}) {
+  const dispatch=useDispatch()
+  const whishList=useSelector(state=>state.wishlist.items)
+    const cartdata=useSelector(state=>state.cartslice.items)
+
     const [hoveredIndex,setHoveredIndex]=useState(null)
   return (
        <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mx-12 my-5 mb-8 ">
 
        {
         data.map((elem,i)=>(
-<div
+<div key={elem.id}
    onMouseEnter={() => setHoveredIndex(i)}
           onMouseLeave={() => setHoveredIndex(null)}
-className="grid gap-4 hover:-translate-y-1 hover:opacity-70 transition-all duration-300 shadow-md p-2">
+className="grid gap-4 hover:-translate-y-1  transition-all duration-300 shadow-md p-2">
     <div className="relative bg-[#F5F5F5] h-40 flex items-center justify-center mb-3 rounded-md">
     {elem.isNew&&<p className="w-16 py-1 px-2 bg-green-600 text-white font-semibold rounded-md absolute top-2 left-2 text-center hover:opacity-50 cursor-pointer">New</p>}
-                <button className="w-7 h-7 bg-white rounded-full shadow absolute top-2 right-2 text-sm">♡</button>
+<button
+  onClick={() => {
+    whishList.find(e => elem.id === e.id)
+      ? dispatch(removeFromwishlist(elem.id))
+      : dispatch(addTowishlist(elem));
+  }}
+  className="absolute top-2 right-2 flex items-center justify-center"
+>
+  {whishList.find(e => elem.id === e.id) ? (
+    <FaHeart size={24} className="text-red-400 cursor-pointer" />
+  ) : (
+    <FaRegHeart size={24} className="text-blue-400" />
+  )}
+</button>
             <button className="w-7 h-7 bg-white rounded-full shadow absolute top-11 right-2 text-sm">👁</button>
     <img src={elem.image} alt={elem.image} className="w-36 h-30 object-contain" />
     {
-        hoveredIndex===i&&<button className=" absolute bottom-0 left-0 w-full text-center bg-black text-white font-semibold cursor-pointer py-2 rounded-md ">
+        hoveredIndex===i&&<button 
+          onClick={()=>{
+                      cartdata.find(e=>e.id===elem.id)?"":dispatch(addToCart(elem))
+                    }}
+        className=" absolute bottom-0 left-0 w-full text-center bg-black text-white font-semibold cursor-pointer py-2 rounded-md ">
             Add To Cart
         </button>
     }

@@ -25,6 +25,11 @@ function WishList() {
                   -{item.discount}%
                 </span>
               )}
+               {item.isNew && (
+                <span className="absolute top-2 left-2 z-20 bg-[#00FF66] text-[#FAFAFA] text-xs font-semibold px-2 py-1 rounded">
+                  NEW
+                </span>
+              )}
               <button 
               onClick={()=>dispatch(removeFromwishlist(item.id))}
               className="absolute top-2 right-2 rounded-full w-7 h-7 bg-white flex items-center justify-center hover:cursor-pointer hover:bg-red-300">
