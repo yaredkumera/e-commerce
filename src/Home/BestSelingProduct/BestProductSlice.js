@@ -44,6 +44,26 @@ const BestProductSlice=createSlice({
    id:12,
    quantity:1,
   },
+  {
+    name: "Small BookShelf",
+    price: 360,
+    oldPrice: null,
+    rating: 5,
+    reviews: 65,
+    image: "/BestSell4.png",
+   id:26,
+   quantity:1,
+  },
+  {
+    name: "Small BookShelf",
+    price: 360,
+    oldPrice: null,
+    rating: 5,
+    reviews: 65,
+    image: "/BestSell4.png",
+   id:27,
+   quantity:1,
+  },
 ]},
 reducers:{
 

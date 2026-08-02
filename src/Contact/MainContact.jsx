@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm"
 
 function MainContact() {
   return (
-    <div>
+    <div className="bg-bg-secondary text-text-primary border border-transparent">
        <NavLinks/> 
        <LinkPage items={[{label:'Home',path:'/'},{label:'Contact',path:'/contact'}]}/>
        <ContactForm/>

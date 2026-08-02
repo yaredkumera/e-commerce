@@ -8,8 +8,11 @@ import BaseExplore from "./ExploreProducts/BaseExplore";
 import MainArival from "./NewArival/MainArival";
 function MainHome() {
   return (
-    <div className="mx-18">
-      <NavLinks hide={1}/> 
+  <div >
+       <NavLinks />
+    
+    <div className="px-18 bg-bg-secondary border border-bg-secondary text-text-primary">
+      
         <HomeForm/>
         <Flash/>
         <BrowseCategory/>
@@ -17,6 +20,7 @@ function MainHome() {
         <MusicBanner/>
         <BaseExplore/>
         <MainArival/>
+    </div>
     </div>
   )
 }

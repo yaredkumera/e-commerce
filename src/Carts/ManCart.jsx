@@ -9,7 +9,7 @@ function ManCart() {
     <div>
                 <NavLinks/> 
         <LinkPage items={[{label:`Home`,path:`/`},{label:`Cart`,path:`/cart`}]}/>
-    <div className="mx-20 my-9">
+    <div className="px-20 py-9 bg-bg-secondary text-text-primary">
 
          <CartForm data={Cart}/>
     </div>

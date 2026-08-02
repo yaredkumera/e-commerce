@@ -5,15 +5,15 @@ import { addToCart,removeFromCart ,updateCart} from "./cartsSlice";
 import { NavLink } from "react-router-dom";
 function CartForm() {
   const[index,setIndex]=useState(null)
-  const[Quantity,setQuantity]=useState(1)
+ 
   const cartList=useSelector(state=>state.cartslice.items)
   const dispatch=useDispatch()
   const subtotal=cartList.reduce((acc,cur)=>{
 return acc+cur.quantity*cur.price
             },0)
   return (
-    <div className=" grid gap-8 w-full mt-7">
-      <div className="grid grid-cols-4 py-2 px-4 items-center shadow-md">
+    <div className=" grid gap-8 w-full mt-7 ">
+      <div className="grid grid-cols-4 py-2 px-4 items-center shadow-md ">
         <p>Product</p>
         <p className=" text-center">Price</p>
         <p className="text-center">Quantity</p>
@@ -23,7 +23,7 @@ return acc+cur.quantity*cur.price
         <div 
         onMouseOver={()=>setIndex(inedx)}
         onMouseLeave={()=>setIndex(null)}
-        className=" relative  grid grid-cols-4 gap-4 py-6 px-4 items-center shadow-lg rounded">
+        className=" relative  grid grid-cols-4 gap-4 py-6 px-4 items-center shadow-lg rounded ">
          { index===inedx&& <p onClick={()=>dispatch(removeFromCart(item.id))} className="absolute top-2 left-2 text-white font-bold rounded-full w-6 h-6 bg-[#DB4444] flex items-center justify-center leading-none cursor-pointer z-10">
       ✕
     </p>}

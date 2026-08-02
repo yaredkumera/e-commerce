@@ -18,6 +18,7 @@ function ExploreCard({data}) {
    onMouseEnter={() => setHoveredIndex(i)}
           onMouseLeave={() => setHoveredIndex(null)}
 className="grid gap-4 hover:-translate-y-1  transition-all duration-300 shadow-md p-2">
+  
     <div className="relative bg-[#F5F5F5] h-40 flex items-center justify-center mb-3 rounded-md">
     {elem.isNew&&<p className="w-16 py-1 px-2 bg-green-600 text-white font-semibold rounded-md absolute top-2 left-2 text-center hover:opacity-50 cursor-pointer">New</p>}
 <button

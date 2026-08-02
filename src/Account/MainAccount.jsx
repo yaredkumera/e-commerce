@@ -1,14 +1,16 @@
 import EditProfile from "./accountdetail/EditProfile"
 import NavLinks from "../common/NavLinks"
 import LinkPage from "../common/LinkPage"
+import { useSelector } from "react-redux"
 function MainAccount() {
+  const user=useSelector(state=>state.authslice.user.name)
   return (
-    <div>
+    <div >
        <NavLinks/>
-       <div className="mx-20">
+       <div className="px-20 bg-bg-secondary text-text-primary border border-transparent">
         <div className="flex justify-between">
        <LinkPage items={[{label:`Home`,path:`/`},{label:`My Account `,path:`/myaccont`}]}/>
-       <p className="whitespace-nowrap px-16 py-9">wellcome{" "}<span className="text-red-500">Md Rimel!</span></p>
+       <p className="whitespace-nowrap px-16 py-9">wellcome{" "}<span className="text-red-500">{user||"Md Rimel!"}</span></p>
        </div>
        <EditProfile/>
        </div>

@@ -3,7 +3,7 @@
  import NavLinks from "../common/NavLinks"
 function NotFound() {
   return (
-    <div>
+    <div  className="bg-bg-secondary text-text-primary ">
         <NavLinks/>
         <LinkPage items={[{label:'Home',path:'/'},{label:'404 error',path:''} ]}  />
          <BodyPage/>

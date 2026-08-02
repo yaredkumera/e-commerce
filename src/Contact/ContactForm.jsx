@@ -22,14 +22,14 @@ function ContactForm() {
       </div>
 
     <div className="rounded-md shadow-md py-5 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-black font-semibold">
           <input type="text" placeholder="Your Name*" className="bg-[#f5f5f5] placeholder-gray-400 px-4 py-3 rounded outline-none focus:border border-green-600  " />
           <input type="email" placeholder="Your Email*" className="bg-[#f5f5f5] placeholder-gray-400 px-4 py-3 rounded outline-none focus:border border-green-600 " />
           <input type="tel" placeholder="Your Phone*" className="bg-[#f5f5f5] placeholder-gray-400 px-4 py-3 rounded outline-none focus:border border-green-600 " />
         </div>
         <textarea
     
-className="bg-[#f5f5f5] w-full min-h-[150px] p-4 mt-4 rounded border border-transparent outline-none focus:border-green-600 placeholder-gray-400"          placeholder="Your Message"
+className="bg-[#f5f5f5] w-full min-h-[150px] p-4 mt-4 rounded border border-transparent outline-none focus:border-green-600 placeholder-gray-400 text-black font-semibold"          placeholder="Your Message"
         ></textarea>
 
         <div className="flex justify-end mt-18">

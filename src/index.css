@@ -1,4 +1,23 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f4f6f9;
+  --color-bg-tertiary: #eaedf3;
+  --color-text-primary: #10131a;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e8ee;
+}
+
+.dark {
+  --color-bg-primary: #0a0e17;
+  --color-bg-secondary: #131824;
+  --color-bg-tertiary: #1c2333;
+  --color-text-primary: #e8eaed;
+  --color-text-secondary: #8b93a7;
+  --color-border: #232a3d;
+}
 body {
   margin: 0;
   display: block;    

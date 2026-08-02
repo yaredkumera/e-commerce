@@ -1,26 +1,28 @@
-import { FiUser, FiHeart, FiShoppingCart, FiSearch } from "react-icons/fi"
+import { FiUser, FiHeart, FiShoppingCart, FiSearch ,FiSun,FiMoon} from "react-icons/fi"
 import { Link ,NavLink} from "react-router-dom"
 import { useSelector } from "react-redux";
-
+import useTheme from "./useTheme";
 function NavLinks({bool,hide}) {
+  const{isDark,toggleTheme}=useTheme()
+  const isLoggedIn=useSelector(state=>state.authslice.isLoggedIn)
   const data=useSelector(state=>state.wishlist.items)
   const cartdata=useSelector(state=>state.cartslice.items)
   return (
-    <div className="flex items-center justify-between px-16 py-4 border-b border-gray-300">
+    <div className="sticky top-0 z-50 flex items-center justify-between px-16 py-4 border-b border-border bg-bg-primary text-text-primary ">
        <Link to="/" className="text-2xl font-bold">Exclusive</Link> 
 
        <div className="flex gap-8 text-sm">
-                 <NavLink to="/" className={({ isActive }) => isActive ? "underline" : "text-gray-500"}>
+                 <NavLink to="/" className={({ isActive }) => isActive ? "underline" : "text-text-secondary"}>
         Home
       </NavLink>
-      <NavLink to="/contact" className={({ isActive }) => isActive ? "underline" : "text-gray-500"}>
+      <NavLink to="/contact" className={({ isActive }) => isActive ? "underline" : "text-text-secondary"}>
         Contact  
       </NavLink>
-         <NavLink to="/about" className={({ isActive }) => isActive ? "underline" : "text-gray-500"}>
+         <NavLink to="/about" className={({ isActive }) => isActive ? "underline" : "text-text-secondary"}>
         About
       </NavLink>
     
-         <NavLink to="/signUp" className={({ isActive }) => isActive ? "underline" : "text-gray-500"}>
+         <NavLink to="/signUp" className={({ isActive }) => isActive ? "underline" : "text-text-secondary"}>
         Sign Up
       </NavLink>
       </div>
@@ -34,7 +36,7 @@ function NavLinks({bool,hide}) {
           <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600" />
         </div>
 
-       { bool!==true&&<div className="flex items-center gap-4">
+       { <div className="flex items-center gap-4">
 <Link to="/wishlist">
   <div className="relative">
     <FiHeart className="w-6 h-6" />
@@ -54,7 +56,17 @@ function NavLinks({bool,hide}) {
     )}
   </div>
 </Link>
-          {hide!==1&&<Link to="/account"><FiUser className="text-xl text-black" /></Link>}
+          {(isLoggedIn)?
+          
+          (<div className="flex items-center justify-center rounded-full bg-[#DB4444] text-white w-9 h-9">
+            <Link to="/account"><FiUser className="text-xl"/></Link>
+          </div>):(<div className="border-gray-300 px-2 py-1 border rounded text-xl hover:bg-black hover:text-white">
+            <Link to="/signup">sign up</Link>
+            </div>)
+          }
+         <button onClick={toggleTheme} className="text-xl text-black dark:text-white">
+          {isDark ? <FiSun /> : <FiMoon />}
+        </button>
         </div>}
       </div>
     </div>

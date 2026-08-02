@@ -1,33 +1,7 @@
-import { useState, useEffect } from "react"
 import ButtonCreator from "../../common/ButtonCreator"
+import useClock from "./useClock"
 
-function getHours12(hours24) {
-  let hours12 = hours24 % 12
-  if (hours12 === 0) hours12 = 12
-  return hours12
-}
-
-function useClock() {
-  const [time, setTime] = useState(new Date())
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date())
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  const hours24 = time.getHours()
-  const hours12 = getHours12(hours24)
-  const minutes = time.getMinutes()
-  const seconds = time.getSeconds()
-  const ampm = hours24 >= 12 ? "PM" : "AM"
-
-  return { hours: hours12, minutes, seconds, ampm }
-}
-
-function SectionHeader({ label, title,stat,Btn,hide }) {
+function SectionHeader({ label, title,stat,Btn,hide,onclick,showall ,handlenext,handleprev}) {
   const { hours, minutes, seconds, ampm } = useClock()
 
   const pad = (num) => String(num).padStart(2, "0")
@@ -69,13 +43,13 @@ function SectionHeader({ label, title,stat,Btn,hide }) {
           <div className="flex absolute bottom-0 right-6 gap-3">
         
 {Btn ? (
-  <ButtonCreator STYLE="py-2 px-6 bg-[#DB4444] text-white w-32 rounded-md" children="View All"/>
+  <ButtonCreator onclick={onclick} STYLE="py-2 px-6 bg-[#DB4444] text-white w-32 rounded-md" children={`${showall?"View less":"View All"}`}/>
 ) : hide ? (
   null
 ) : (
   <>
-    <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">←</button>
-    <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">→</button>
+    <button onClick={handleprev} className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 text-black">←</button>
+    <button  onClick={handlenext} className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 text-black">→</button>
   </>
 )} 
       </div>

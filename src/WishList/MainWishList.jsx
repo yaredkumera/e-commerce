@@ -5,7 +5,7 @@ function MainWishList() {
   return (
     <div>
         <NavLinks/>
-<div className="mx-20 my-14">
+<div className="px-20 py-14  bg-bg-secondary text-text-primary">
     <WishList/>
     <RelatedItem/>
 </div>

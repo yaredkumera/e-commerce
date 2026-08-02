@@ -3,7 +3,7 @@ import ButtonCreator from "../../common/ButtonCreator";
 import AccountDropdown from "./AccountDropdown";
 function EditProfile() {
 
-    let Style=`rounded bg-[#F5F5F5] outline-none focus:border  focus:border-blue-600 px-3 py-2 placeholder-gray-400  `
+    let Style=`rounded bg-[#F5F5F5] outline-none focus:border  focus:border-blue-600 px-3 py-2 placeholder-gray-400 text-black font-semibold `
   return ( 
     <div className="grid grid-cols-[1fr_2fr] gap-2 my-10 mb-32">
 <AccountDropdown/>

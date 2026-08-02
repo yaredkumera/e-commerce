@@ -12,6 +12,7 @@ const cartSlice = createSlice({
     id:13,
     reviews: 65,
     image: "/BestSell1.png",
+    quantity:1,
   },
   {
     name: "Gucci duffle bag",
@@ -21,6 +22,7 @@ const cartSlice = createSlice({
     reviews: 65,
     id:14,
     image: "/BestSell2.png",
+     quantity:1,
   },
   {
     name: "RGB liquid CPU Cooler",
@@ -30,6 +32,7 @@ const cartSlice = createSlice({
     reviews: 65,
     image: "/BestSell3.png",
     id:15,
+     quantity:1,
   },
   {
     name: "Small BookShelf",
@@ -39,6 +42,7 @@ const cartSlice = createSlice({
     reviews: 65,
     image: "/BestSell4.png",
     id:16,
+     quantity:1,
   }]
   
   },

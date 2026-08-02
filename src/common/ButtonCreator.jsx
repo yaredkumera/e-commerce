@@ -1,6 +1,6 @@
-function ButtonCreator({ icon, children, STYLE, onClick }) {
+function ButtonCreator({ icon, children, STYLE, onclick }) {
   return (
-    <button onClick={onClick} className={STYLE}>
+    <button onClick={onclick} className={STYLE}>
       {icon}
       {children}
     </button>

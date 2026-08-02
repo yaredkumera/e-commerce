@@ -4,6 +4,7 @@ import FleshSalesReducer from "./Home/FlashSales/FleshSalesSlice";
 import ProductReducer from "./Home/ExploreProducts/ProductsToExploreSlice"
 import BestProductReducer from "./Home/BestSelingProduct/BestProductSlice"
 import CartReducer from "./Carts/CartsDetal/cartsSlice"
+import AuthReducer from "./Login/Logindetail/AuthSlice"
 const store = configureStore({
   reducer: {
   
@@ -12,6 +13,7 @@ const store = configureStore({
     productslice:ProductReducer,
     bestproductslice:BestProductReducer,
     cartslice:CartReducer,
+      authslice: AuthReducer,
   },
 });
 

@@ -19,7 +19,7 @@ function HomeForm() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
   return (
     <div className="grid md:grid-cols-[250px_1fr] gap-8 rounded-md overflow-hidden mx-10 my-8">
-       <div className="divide-y divide-gray-200 py-2">
+       <div className="divide-y divide-text-secondary py-2">
         {categories.map((cat, i) => (
           <div
             key={i}

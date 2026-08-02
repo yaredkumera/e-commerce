@@ -28,7 +28,7 @@ function RENDER({ feature }) {
             <img src={elem.icon}   className="w-16 h-16" />
           </div>
           <p className="font-bold text-sm mb-1">{elem.title}</p>
-          <p className="text-xs text-gray-950">{elem.desc}</p>
+          <p className="text-xs text-text-secondary">{elem.desc}</p>
         </div>
       ))}
     </div>

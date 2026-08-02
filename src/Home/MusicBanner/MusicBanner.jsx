@@ -1,9 +1,16 @@
-function    MusicBanner() {
+import useCountdown from "../common/useCountdown"
+
+function MusicBanner() {
+  const targetDate = "2026-08-05T00:00:00" 
+  const { days, hours, minutes, seconds } = useCountdown(targetDate)
+
+  const pad = (num) => String(num).padStart(2, "0")
+
   const stats = [
-    { value: "23", label: "Hours" },
-    { value: "05", label: "Days" },
-    { value: "59", label: "Minutes" },
-    { value: "35", label: "Seconds" },
+    { value: pad(days), label: "Days" },
+    { value: pad(hours), label: "Hours" },
+    { value: pad(minutes), label: "Minutes" },
+    { value: pad(seconds), label: "Seconds" },
   ]
 
   return (

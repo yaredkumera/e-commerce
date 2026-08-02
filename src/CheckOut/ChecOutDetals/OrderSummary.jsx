@@ -60,7 +60,7 @@ function OrderSummary() {
         <input
           type="text"
           placeholder="Coupon Code"
-          className="py-2 px-3 rounded-md bg-gray-200 w-full outline-none"
+          className="py-2 px-3 rounded-md bg-gray-200 w-full outline-none text-black font-semibold"
         />
         <button className="bg-[#DB4444] text-white px-4 rounded-md whitespace-nowrap">
           Apply Coupon

@@ -16,11 +16,11 @@ function ProductCard({ data,hide,heart }) {
           key={i}
           onMouseEnter={() => setHoveredIndex(i)}
           onMouseLeave={() => setHoveredIndex(null)}
-          className={`relative  rounded-md p-3  transition-colors duration-300 ease-out-in`}
+          className={`relative  rounded-md p-3  transition-colors duration-300 ease-out-in bg-bg-teritiary shadow-md`}
         >
           
 
-          <div className="relative bg-[#F5F5F5] h-40 flex items-center justify-center mb-3">
+          <div className="relative bg-[#F5F5F5] h-40 flex items-center justify-center mb-3  rounded-md">
           {!hide&& <span className="absolute top-2 left-2 z-20 bg-[#DB4444] text-white text-xs font-semibold px-2 py-1 rounded">
             -{p.discount}%
           </span>}
@@ -53,7 +53,7 @@ function ProductCard({ data,hide,heart }) {
 </div> 
             )}
           </div>
-          <p className="text-sm mb-1">{p.name}</p>
+          <p className="text-text-primary font-semibold mb-1">{p.name}</p>
           <div className="flex gap-2 items-center mb-1">
             <span className="text-red-500 font-semibold">${p.price}</span>
             <span className="text-gray-400 line-through text-sm">${p.oldPrice}</span>
