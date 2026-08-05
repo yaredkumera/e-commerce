@@ -1,11 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { login } from "./AuthSlice"
-import { useDispatch } from "react-redux"
-import InputGenerator from "../../CheckOut/ChecOutDetals/InputGenerator"
+
+import { useLoginMutation } from "../../RTK/LoginApi"
+import InputGenerator from "../../common/InputGenerator"
 
 function LoginForm() {
-  const dispatch = useDispatch()
+  const[loginToAccount]=useLoginMutation()
   const navigate = useNavigate()
   const [form, setForm] = useState({ email: "", password: "" })
   const [error, setError] = useState("")
@@ -15,14 +15,23 @@ function LoginForm() {
   setForm(prev => ({ ...prev, [name]: value }))
 }
 
-  const handleLogin = () => {
-    if (form.email && form.password) {
-      dispatch(login(form))
-      setForm({ email: "", password: "" })
-      navigate("/")
+  const handleLogin = async() => {
+    if (!(form.email && form.password)) {
+      setError("Please fill out both fields")
       return
     }
-    setError("Please fill out both fields")
+    try{
+      const data=await loginToAccount(form).unwrap()
+      localStorage.setItem('token',data.token)
+      
+      setForm({ email: "", password: "" })
+      navigate("/")
+    }
+    catch(err){
+      setError(err.data?.message||'Login Failed')
+    }
+    
+    
   }
 
   let Style = "border-b border-gray-300 outline-none py-2 w-full focus:border-blue-400"

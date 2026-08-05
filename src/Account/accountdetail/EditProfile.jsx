@@ -1,4 +1,4 @@
-import InputGenerator from "../../CheckOut/ChecOutDetals/InputGenerator";
+import InputGenerator from "../../common/InputGenerator";
 import ButtonCreator from "../../common/ButtonCreator";
 import AccountDropdown from "./AccountDropdown";
 function EditProfile() {

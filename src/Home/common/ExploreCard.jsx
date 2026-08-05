@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { addToCart } from "../../Carts/CartsDetal/cartsSlice";
 import {  useDispatch,useSelector} from "react-redux";
 import { addTowishlist,removeFromwishlist } from "../../WishList/WishListCard/WishListSlice";
+import { useCreateCartMutation,useGetCartsQuery } from "../../RTK/CartApi";
 function ExploreCard({data}) {
   const dispatch=useDispatch()
   const whishList=useSelector(state=>state.wishlist.items)
-    const cartdata=useSelector(state=>state.cartslice.items)
-
+const {data:cartdata=[]}=useGetCartsQuery()
+const[addToCartDB]=useCreateCartMutation()
     const [hoveredIndex,setHoveredIndex]=useState(null)
   return (
        <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mx-12 my-5 mb-8 ">
@@ -40,7 +40,7 @@ className="grid gap-4 hover:-translate-y-1  transition-all duration-300 shadow-m
     {
         hoveredIndex===i&&<button 
           onClick={()=>{
-                      cartdata.find(e=>e.id===elem.id)?"":dispatch(addToCart(elem))
+                      addToCartDB(elem)
                     }}
         className=" absolute bottom-0 left-0 w-full text-center bg-black text-white font-semibold cursor-pointer py-2 rounded-md ">
             Add To Cart

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import InputGenerator from "./InputGenerator"
+import InputGenerator from "../../common/InputGenerator"
 import OrderSummary from "./OrderSummary"
 
 function ChecOutForm() {

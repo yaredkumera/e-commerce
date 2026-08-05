@@ -2,12 +2,12 @@ import { useState } from "react"
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { addTowishlist ,removeFromwishlist} from "../../WishList/WishListCard/WishListSlice";
 import { useDispatch,useSelector } from "react-redux";
-import { addToCart } from "../../Carts/CartsDetal/cartsSlice";
+import { useCreateCartMutation } from "../../RTK/CartApi";
 function ProductCard({ data,hide,heart }) {
   const dispatch=useDispatch()
   const whishList=useSelector(state=>state.wishlist.items)
-  const cartdata=useSelector(state=>state.cartslice.items)
   const [hoveredIndex, setHoveredIndex] = useState(null)
+  const[addToCartDB]=useCreateCartMutation()
   return (
     <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mx-10 my-5 mb-8 ">
    
@@ -46,7 +46,7 @@ function ProductCard({ data,hide,heart }) {
            {hoveredIndex === i &&(
             <div 
             onClick={()=>{
-              cartdata.find(e=>e.id===p.id)?"":dispatch(addToCart(p))
+              addToCartDB(p)
             }}
             className="absolute bottom-0 left-0 w-full bg-black text-white text-center rounded-md hover:opacity-90 cursor-pointer py-2 text-sm">
   Add To Cart  
@@ -68,5 +68,4 @@ function ProductCard({ data,hide,heart }) {
     </div>
   )
 }
-
 export default ProductCard

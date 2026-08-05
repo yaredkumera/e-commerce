@@ -2,11 +2,12 @@ import { FiUser, FiHeart, FiShoppingCart, FiSearch ,FiSun,FiMoon} from "react-ic
 import { Link ,NavLink} from "react-router-dom"
 import { useSelector } from "react-redux";
 import useTheme from "./useTheme";
+import { useGetCartsQuery } from "../RTK/CartApi";
 function NavLinks({bool,hide}) {
   const{isDark,toggleTheme}=useTheme()
   const isLoggedIn=useSelector(state=>state.authslice.isLoggedIn)
   const data=useSelector(state=>state.wishlist.items)
-  const cartdata=useSelector(state=>state.cartslice.items)
+  const {data:cartdata=[]}=useGetCartsQuery()
   return (
     <div className="sticky top-0 z-50 flex items-center justify-between px-16 py-4 border-b border-border bg-bg-primary text-text-primary ">
        <Link to="/" className="text-2xl font-bold">Exclusive</Link> 

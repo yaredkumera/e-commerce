@@ -1,11 +1,11 @@
 import { Trash2 } from "lucide-react";
 import { removeFromwishlist } from "./WishListSlice";
-import { addToCart } from "../../Carts/CartsDetal/cartsSlice";
 import { useState } from "react";
-function WishlistItem({ item,index, cartdata, dispatch }) {
-  let isInCart = cartdata.find(e => e.id === item.id);
-  const [hoveredIndex, setHoveredIndex] = useState(null)
+import { useCreateCartMutation } from "../../RTK/CartApi";
 
+function WishlistItem({ item,index, cartdata, dispatch }) {
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+const[addToCartDB]=useCreateCartMutation()
   return (
     <div className="bg-bg-secondary rounded-md shadow-md relative grid p-2"
     onMouseEnter={() => setHoveredIndex(index)}
@@ -30,7 +30,10 @@ function WishlistItem({ item,index, cartdata, dispatch }) {
         </button>
         <img src={item.image} alt={item.name} className="h-30 w-30 object-contain" />
          {hoveredIndex === index &&(<div
-          onClick={() => !isInCart && dispatch(addToCart(item))}
+          onClick={
+addToCartDB(item)
+            
+          }
           className="absolute bottom-0 left-0 w-full bg-black text-white text-center rounded-md hover:opacity-90 py-2 cursor-pointer text-sm"
         >
           Add To Cart
