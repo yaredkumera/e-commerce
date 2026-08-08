@@ -1,15 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const loginApi=createApi({
-    reducerPath:'loginApi',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:5000'}),
-    endpoints:(builder)=>({
-        login:builder.mutation({
-            query:(userData)=>({
-               url:'/api/login' ,
-               body:userData,
-               method:'POST',
-            })
-        })
-    })
+import { apiSlice } from './MainApiCall'
+
+export const loginApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    login: builder.mutation({
+      query: (userData) => ({
+        url: '/api/login',
+        method: 'POST',
+        body: userData,
+      }),
+      transformResponse: (response) => ({
+        success: response.success,
+        message: response.message,
+        token: response.data.token,
+        user: response.data.user,
+      }),
+    }),
+  }),
 })
-export const {useLoginMutation}=loginApi
+
+export const { useLoginMutation } = loginApi

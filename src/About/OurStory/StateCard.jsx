@@ -1,11 +1,27 @@
 function StateCard() {
   const stats = [
-    { icon: "/About/StateImagve/first.png", value: "10.5k", label: "Sellers active our site" },
-    { icon: "/About/StateImagve/second.png", value: "33k", label: "Monthly Product Sale" },
-    { icon: "/About/StateImagve/third.png", value: "45.5k", label: "Customer active in our site" },
-    { icon: "/About/StateImagve/forthm.png", value: "25k", label: "Annual gross sale in our site" },
-  ]
-  return <RenderS stats={stats} />
+    {
+      icon: "/About/StateImagve/first.png",
+      value: "10.5k",
+      label: "Sellers active our site",
+    },
+    {
+      icon: "/About/StateImagve/second.png",
+      value: "33k",
+      label: "Monthly Product Sale",
+    },
+    {
+      icon: "/About/StateImagve/third.png",
+      value: "45.5k",
+      label: "Customer active in our site",
+    },
+    {
+      icon: "/About/StateImagve/forthm.png",
+      value: "25k",
+      label: "Annual gross sale in our site",
+    },
+  ];
+  return <RenderS stats={stats} />;
 }
 
 function RenderS({ stats }) {
@@ -24,7 +40,7 @@ function RenderS({ stats }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default StateCard
+export default StateCard;

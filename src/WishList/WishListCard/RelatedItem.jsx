@@ -1,16 +1,19 @@
 import ProductCard from "../../Home/common/ProductCard"
 import SectionHeader from "../../Home/common/SectionHeader"
-import { useSelector } from "react-redux"
+import { useGetProductQuery } from "../../RTK/ProductApi"
+
 function RelatedItem() {
-    const relateditem=useSelector(state=>state.fleshslice.items)
+  const { data } = useGetProductQuery()
+  const relateditem = (data?.products ?? []).slice(0, 4)
+
   return (
     <div className="-mx-10">
-       <div className="flex justify-between items-center pr-9">
-        <SectionHeader label={"Related Items"} hide={true}/>
+      <div className="flex justify-between items-center pr-9">
+        <SectionHeader label={"Related Items"} hide={true} />
         <button className="px-3  px-4 py-2 text-white bg-black rounded">See All</button>
-        </div> 
-        <ProductCard data={relateditem} heart={true}/>
-    </div>  
+      </div>
+      <ProductCard data={relateditem} heart={true} />
+    </div>
   )
 }
 

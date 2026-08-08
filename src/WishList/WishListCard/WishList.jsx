@@ -1,16 +1,21 @@
-import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../../Carts/CartsDetal/cartsSlice";
+import { useGetWhishListQuery } from "../../RTK/whishListApi";
+import { useGetCartsQuery, useCreateCartMutation } from "../../RTK/CartApi";
 import WishlistItem from "./WishlistItem";
 
 function WishList() {
-  const data = useSelector((state) => state.wishlist.items);
-  const cartdata = useSelector((state) => state.cartslice.items);
-  const dispatch = useDispatch();
+  const { data: wishlistData } = useGetWhishListQuery()
+  const data = wishlistData?.wishlist ?? []
 
-  let moveAllToBag = () => {
-    for (let p of data) {
-      if (!cartdata.find(e => e.id === p.id)) {
-        dispatch(addToCart(p));
+  const { data: cartData } = useGetCartsQuery()
+  const cartdata = cartData?.cart ?? []
+
+  const [addToCartDB] = useCreateCartMutation()
+
+  const moveAllToBag = () => {
+    for (let entry of data) {
+      const alreadyInCart = cartdata.find((c) => c.product._id === entry.product._id)
+      if (!alreadyInCart) {
+        addToCartDB({ productId: entry.product._id, quantity: 1 })
       }
     }
   };
@@ -28,8 +33,8 @@ function WishList() {
       </div>
 
       <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
-        {data.map((item,i) => (
-          <WishlistItem index={i} key={item.id} item={item} cartdata={cartdata} dispatch={dispatch} />
+        {data.map((entry) => (
+          <WishlistItem key={entry._id} item={entry} />
         ))}
       </div>
     </div>

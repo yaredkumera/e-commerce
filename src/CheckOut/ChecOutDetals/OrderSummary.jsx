@@ -1,5 +1,5 @@
+import { useGetCartsQuery } from "../../RTK/CartApi";
 
-import { useSelector } from "react-redux";
 function OrderItem({ image, name, price }) {
   return (
     <div className="flex justify-between items-center mb-6">
@@ -13,19 +13,23 @@ function OrderItem({ image, name, price }) {
 }
 
 function OrderSummary() {
-  const cartdata=useSelector(state=>state.cartslice.items)
+  const { data: cartData=[] } = useGetCartsQuery()
+  const cartdata = cartData?.cart ?? []
 
-  let subtotal = cartdata.reduce((sum, item) => sum + item.price*item.quantity, 0);
-  let shipping = 0; 
+  let subtotal = cartdata.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  let shipping = 0;
   let total = subtotal + shipping;
 
   return (
     <div className="grid gap-4 ">
-      {cartdata.map((item, i) => (
-        <OrderItem key={i} {...item} />
+      {cartdata.map((item) => (
+        <OrderItem
+          key={item._id}
+          image={item.product.image}
+          name={item.product.name}
+          price={item.product.price}
+        />
       ))}
-
-      
 
       <div className="flex justify-between">
         <p>Subtotal:</p>
@@ -42,14 +46,12 @@ function OrderSummary() {
         <p>${total}</p>
       </div>
 
-      
-
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
-        <input type="radio" name="payment" id="bank" />
-        <label htmlFor="bank">Bank</label>
-      </div>
-<img src="/VISA.png" alt="" />
+          <input type="radio" name="payment" id="bank" />
+          <label htmlFor="bank">Bank</label>
+        </div>
+        <img src="/VISA.png" alt="" />
       </div>
       <div className="flex items-center gap-2">
         <input type="radio" name="payment" id="cod" defaultChecked />

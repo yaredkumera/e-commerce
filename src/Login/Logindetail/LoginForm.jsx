@@ -1,37 +1,40 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 
 import { useLoginMutation } from "../../RTK/LoginApi"
+import { login } from "./AuthSlice"
 import InputGenerator from "../../common/InputGenerator"
 
 function LoginForm() {
-  const[loginToAccount]=useLoginMutation()
+  const [loginToAccount] = useLoginMutation()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [form, setForm] = useState({ email: "", password: "" })
   const [error, setError] = useState("")
 
- const handleChange = (e) => {
-  const { name, value } = e.target
-  setForm(prev => ({ ...prev, [name]: value }))
-}
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+  }
 
-  const handleLogin = async() => {
+  const handleLogin = async () => {
     if (!(form.email && form.password)) {
       setError("Please fill out both fields")
       return
     }
-    try{
-      const data=await loginToAccount(form).unwrap()
-      localStorage.setItem('token',data.token)
-      
+    try {
+      const data = await loginToAccount(form).unwrap()
+      localStorage.setItem('token', data.token)
+      localStorage.setItem("currentUser", data.user)
+      dispatch(login(data.user))
+
       setForm({ email: "", password: "" })
       navigate("/")
     }
-    catch(err){
-      setError(err.data?.message||'Login Failed')
+    catch (err) {
+      setError(err.data?.message || 'Login Failed')
     }
-    
-    
   }
 
   let Style = "border-b border-gray-300 outline-none py-2 w-full focus:border-blue-400"
@@ -49,22 +52,22 @@ function LoginForm() {
             <p className="font-semibold text-red-600 text-sm">{error}</p>
           )}
 
-<InputGenerator
-  name="email"
-  placeholder="Email or Phone Number"
-  type="text"
-  value={form.email}
-  onChange={handleChange}
-  STYLE={Style}
-/>
-<InputGenerator
-  name="password"
-  placeholder="Password"
-  type="password"
-  value={form.password}
-  onChange={handleChange}
-  STYLE={Style}
-/>
+          <InputGenerator
+            name="email"
+            placeholder="Email or Phone Number"
+            type="text"
+            value={form.email}
+            onChange={handleChange}
+            STYLE={Style}
+          />
+          <InputGenerator
+            name="password"
+            placeholder="Password"
+            type="password"
+            value={form.password}
+            onChange={handleChange}
+            STYLE={Style}
+          />
 
           <div className="flex items-center justify-between">
             <button
