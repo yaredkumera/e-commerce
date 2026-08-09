@@ -1,7 +1,6 @@
-
 import { useState } from "react"
 import { FaHeart, FaRegHeart } from "react-icons/fa"
-import { useCreateCartMutation, useGetCartsQuery } from "../../RTK/CartApi"
+import { useCreateCartMutation } from "../../RTK/CartApi"
 import {
   useGetWhishListQuery,
   useAddToWishlistMutation,
@@ -11,9 +10,6 @@ import {
 function ExploreCard({ data: products }) {
   const { data: wishlistData } = useGetWhishListQuery()
   const wishList = wishlistData?.wishlist ?? []
-
-  const { data: cartData } = useGetCartsQuery()
-  const cartData_ = cartData?.cart ?? []
 
   const [addToCartDB] = useCreateCartMutation()
   const [addToWishlistDB] = useAddToWishlistMutation()
@@ -38,12 +34,12 @@ function ExploreCard({ data: products }) {
             )}
             <button
               onClick={() => {
-                const inWishlist = wishList.find((e) => elem._id === e._id)
-                inWishlist ? removeFromWishlistDB(elem._id) : addToWishlistDB(elem)
+                const inWishlist = wishList.find((e) => elem._id === e.product._id)
+                inWishlist ? removeFromWishlistDB(elem._id) : addToWishlistDB({ productId: elem._id })
               }}
               className="absolute top-2 right-2 flex items-center justify-center"
             >
-              {wishList.find((e) => elem._id === e._id) ? (
+              {wishList.find((e) => elem._id === e.product._id) ? (
                 <FaHeart size={24} className="text-red-400 cursor-pointer" />
               ) : (
                 <FaRegHeart size={24} className="text-blue-400" />
@@ -54,7 +50,7 @@ function ExploreCard({ data: products }) {
             {hoveredIndex === i && (
               <button
                 onClick={() => {
-                  addToCartDB(elem)
+                  addToCartDB({ productId: elem._id })
                 }}
                 className="absolute bottom-0 left-0 w-full text-center bg-black text-white font-semibold cursor-pointer py-2 rounded-md"
               >
@@ -89,88 +85,3 @@ function ExploreCard({ data: products }) {
 }
 
 export default ExploreCard
-
-
-// import { useState } from "react"
-// import { FaHeart, FaRegHeart } from "react-icons/fa";
-// // import {  useDispatch,useSelector} from "react-redux";
-// // import { addTowishlist,removeFromwishlist } from "../../WishList/WishListCard/WishListSlice";
-// import { useCreateCartMutation,useGetCartsQuery } from "../../RTK/CartApi";
-// import {useGetWhishListQuery} from "../../RTK/whishListApi"
-// function ExploreCard({data}) {
-//   // const dispatch=useDispatch()
-//   // const whishList=useSelector(state=>state.wishlist.items)
-//   const {data,isLoading,}=useGetWhishListQuery()
-// const whishList=data?.whishlist??[]
-// const {data:cartdata=[]}=useGetCartsQuery()
-// const[addToCartDB]=useCreateCartMutation()
-
-//     const [hoveredIndex,setHoveredIndex]=useState(null)
-//   return (
-//        <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mx-12 my-5 mb-8 ">
-//        {
-//         data.map((elem,i)=>(
-// <div key={elem._id}
-//    onMouseEnter={() => setHoveredIndex(i)}
-//           onMouseLeave={() => setHoveredIndex(null)}
-// className="grid gap-4 hover:-translate-y-1  transition-all duration-300 shadow-md p-2">
-  
-//     <div className="relative bg-[#F5F5F5] h-40 flex items-center justify-center mb-3 rounded-md">
-//     {elem.isNew&&<p className="w-16 py-1 px-2 bg-green-600 text-white font-semibold rounded-md absolute top-2 left-2 text-center hover:opacity-50 cursor-pointer">New</p>}
-// <button
-//   onClick={() => {
-//     whishList.find(e => elem._id === e._id)
-//       ? dispatch(removeFromwishlist(elem._id))
-//       : dispatch(addTowishlist(elem));
-//   }}
-//   className="absolute top-2 right-2 flex items-center justify-center"
-// >
-//   {whishList.find(e => elem._id === e._id) ? (
-//     <FaHeart size={24} className="text-red-400 cursor-pointer" />
-//   ) : (
-//     <FaRegHeart size={24} className="text-blue-400" />
-//   )}
-// </button>
-//             <button className="w-7 h-7 bg-white rounded-full shadow absolute top-11 right-2 text-sm">👁</button>
-//     <img src={elem.image} alt={elem.image} className="w-36 h-30 object-contain" />
-//     {
-//         hoveredIndex===i&&<button 
-//           onClick={()=>{
-//                       addToCartDB(elem)
-//                     }}
-//         className=" absolute bottom-0 left-0 w-full text-center bg-black text-white font-semibold cursor-pointer py-2 rounded-md ">
-//             Add To Cart
-//         </button>
-//     }
-// </div>
-// <p className="font-semibold">{elem.name}</p>
-// <p className="flex gap-2 ">
-//     <span className="text-red-500">{'$'}{elem.price}</span>
-//     <span
-//     className="text-yellow-400 text-sm">
-//             {"★".repeat(elem.rating)}
-//             {"☆".repeat(5 - elem.rating)}{" "}
-//             </span>
-//     <span className="text-gray-500">({elem.reviews})</span>
-// </p>
-// {
-//   elem.colors && elem.colors.length > 0 && (
-//     <div className="flex gap-2">
-//       {elem.colors.map((color, _idx) => (
-//         <button
-//           key={_idx}
-//           className="w-5 h-5 rounded-full border border-gray-200"
-//           style={{ backgroundColor: color }}
-//         ></button>
-//       ))}
-//     </div>
-//   )
-// }
-// </div>
-//         ))
-//        } 
-//     </div>
-//   )
-// }
-
-// export default ExploreCard

@@ -1,4 +1,3 @@
-// RTK/CartApi.js
 import { apiSlice } from './MainApiCall'
 export const cartApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

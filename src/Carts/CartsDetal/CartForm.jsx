@@ -5,11 +5,11 @@ import {
   useUpdateCartMutation,
   useDeleteCartMutation,
 } from "../../RTK/CartApi";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 
 function CartForm() {
-  const [index, setIndex] = useState(null);
-
+  const  navigate=useNavigate()
+  const  [index, setIndex] = useState(null);
   const [deleteFromCart] = useDeleteCartMutation();
   const [updateCart] = useUpdateCartMutation();
   const { data: cartData } = useGetCartsQuery();
@@ -69,14 +69,14 @@ function CartForm() {
           <p className="text-right ">${item.quantity * item.product.price}</p>
         </div>
       ))}
-
       <div className="flex justify-between ">
         <ButtonCreator
-          STYLE={"border border-gray-400 py-2 px-3 rounded"}
-          children={" Return To Shop"}
+          STYLE={"border border-gray-400 dark:border-gray-600 py-2 px-3 rounded text-text-primary hover:bg-[#DB4444] hover:text-white hover:border-[#DB4444] active:bg-red-500 transition-colors"}
+         children={" Return To Shop"}
+          onclick={()=>navigate('/')}
         />
         <ButtonCreator
-          STYLE={"border border-gray-400 py-2 px-3 rounded"}
+          STYLE={"border border-gray-400 dark:border-gray-600 py-2 px-3 rounded text-text-primary hover:bg-[#DB4444] hover:text-white hover:border-[#DB4444] active:bg-red-500 transition-colors"}
           children={" Update Cart"}
         />
       </div>
@@ -85,18 +85,18 @@ function CartForm() {
           <input
             type="text"
             placeholder="Coupon Code"
-            className="max-w-48 px-4 py-2 rounded border border-gray-600"
+            className="max-w-48 px-4 py-2 rounded border border-gray-600 dark:border-gray-500 bg-transparent text-text-primary placeholder-gray-500 dark:placeholder-gray-400"
           />
 
           <ButtonCreator
             STYLE={
-              "max-w-48 px-4 py-2 rounded border bg-[#DB4444] text-white border-gray-600"
-            }
+              "max-w-48 px-4 py-2 rounded border border-gray-600 dark:border-gray-500 bg-[#DB4444] text-white hover:bg-red-600 active:bg-red-700 transition-colors"
+            } 
             children={"  Apply Coupon"}
           />
         </div>
 
-        <div className="grid gap-3 p-3 border border-gray-400 rounded w-80">
+        <div className="grid gap-3 p-3 border border-gray-400 dark:border-gray-600 rounded w-80">
           <p className="text-2xl font-medium">Cart Total</p>
 
           <Simlify
@@ -119,7 +119,7 @@ function CartForm() {
 
           <NavLink to={"/checkout"}>
             <ButtonCreator
-              STYLE={"bg-[#DB4444] text-white block mx-auto px-4 py-2 rounded"}
+              STYLE={"bg-[#DB4444] text-white block mx-auto px-4 py-2 rounded hover:bg-red-600 active:bg-red-700 transition-colors"}
               children={"  Proceed to Checkout"}
             />
           </NavLink>

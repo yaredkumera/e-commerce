@@ -12,11 +12,13 @@ import ManCart from "./Carts/ManCart";
 import MainProductDetail from "./ProductDetail/MainProductDetail";
 import MainAccount from "./Account/MainAccount";
 import MainWishList from "./WishList/MainWishList";
+import BroweserComponent from "./common/BroweserComponent"
 export default function App() {
   return (
     <div>
       <Header />
       <Routes>
+         <Route path="/shop" element={<BroweserComponent />} />
         <Route path="/wishlist" element={<MainWishList />} />
         <Route path="/account" element={<MainAccount />} />
         <Route path="/Product" element={<MainProductDetail />} />
