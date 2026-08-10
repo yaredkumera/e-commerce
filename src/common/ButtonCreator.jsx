@@ -3,7 +3,7 @@ function ButtonCreator({ icon, children, STYLE, onclick }) {
     <button onClick={onclick} className={STYLE}>
     {icon}
       {children}
-    </button>
+   </button>
   )
 }
 export default ButtonCreator;

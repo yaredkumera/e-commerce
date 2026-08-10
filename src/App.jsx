@@ -13,11 +13,18 @@ import MainProductDetail from "./ProductDetail/MainProductDetail";
 import MainAccount from "./Account/MainAccount";
 import MainWishList from "./WishList/MainWishList";
 import BroweserComponent from "./common/BroweserComponent"
+import MyOrders from "./CheckOut/ChecOutDetals/MyOrders";
+import ForgotPassword from "./Login/Logindetail/ForgotPassword";
+import MainAdminPage from "./Admin/MainAdminPage";
 export default function App() {
   return (
     <div>
       <Header />
       <Routes>
+                <Route path="/admin" element={<MainAdminPage />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/orders" element={<MyOrders />} />
          <Route path="/shop" element={<BroweserComponent />} />
         <Route path="/wishlist" element={<MainWishList />} />
         <Route path="/account" element={<MainAccount />} />

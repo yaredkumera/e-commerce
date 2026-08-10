@@ -27,9 +27,11 @@ function LoginForm() {
       const data = await loginToAccount(form).unwrap()
       localStorage.setItem('token', data.token)
       localStorage.setItem("currentUser", data.user)
+      localStorage.setItem("role",data.role)
       dispatch(login(data.user))
 
       setForm({ email: "", password: "" })
+      data.role==="admin"?navigate("/admin"):
       navigate("/")
     }
     catch (err) {

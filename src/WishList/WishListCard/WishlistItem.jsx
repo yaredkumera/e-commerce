@@ -16,7 +16,7 @@ function WishlistItem({ item }) {
       onMouseLeave={() => setHovered(false)}
     >
       <div className="relative w-full flex items-center justify-center h-48 bg-[#F5F5F5] rounded-md">
-        {product.discount > 0 && (
+        {product.discount &&product.discount > 0 && (
           <span className="absolute top-2 left-2 z-20 bg-[#DB4444] text-white text-xs font-semibold px-2 py-1 rounded">
             -{product.discount}%
           </span>

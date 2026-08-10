@@ -13,6 +13,7 @@ export const loginApi = apiSlice.injectEndpoints({
         message: response.message,
         token: response.data.token,
         user: response.data.user,
+        role:response.data.role,
       }),
     }),
   }),

@@ -1,4 +1,7 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetCartsQuery } from "../../RTK/CartApi";
+import { useCreateOrderMutation } from "../../RTK/orderApi";
 
 function OrderItem({ image, name, price }) {
   return (
@@ -12,16 +15,42 @@ function OrderItem({ image, name, price }) {
   );
 }
 
-function OrderSummary() {
-  const { data: cartData=[] } = useGetCartsQuery()
-  const cartdata = cartData?.cart ?? []
+function OrderSummary({ form }) {
+  const navigate = useNavigate();
+  const { data: cartData } = useGetCartsQuery();
+  const cartdata = cartData?.cart ?? [];
 
-  let subtotal = cartdata.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [error, setError] = useState("");
+
+  let subtotal = cartdata.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0,
+  );
   let shipping = 0;
   let total = subtotal + shipping;
 
+  const handlePlaceOrder = async () => {
+    const { firstName, streetAddress, townCity, phoneNumber, email } = form;
+    if (!(firstName && streetAddress && townCity && phoneNumber && email)) {
+      setError("Please fill out all required billing fields");
+      return;
+    }
+
+    try {
+      await createOrder({ ...form, paymentMethod }).unwrap();
+
+      navigate("/orders");
+    } catch (err) {
+      setError(err.data?.message || "Failed to place order");
+    }
+  };
+
   return (
     <div className="grid gap-4 ">
+      {error && <p className="text-red-600 font-semibold">{error}</p>}
+
       {cartdata.map((item) => (
         <OrderItem
           key={item._id}
@@ -35,12 +64,12 @@ function OrderSummary() {
         <p>Subtotal:</p>
         <p>${subtotal}</p>
       </div>
-      <hr className="text-gray-300 "/>
+      <hr className="text-gray-300 " />
       <div className="flex justify-between">
         <p>Shipping:</p>
         <p>{shipping === 0 ? "Free" : `$${shipping}`}</p>
       </div>
-      <hr className="text-gray-300"/>
+      <hr className="text-gray-300" />
       <div className="flex justify-between font-semibold mb-4">
         <p>Total:</p>
         <p>${total}</p>
@@ -48,13 +77,25 @@ function OrderSummary() {
 
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
-          <input type="radio" name="payment" id="bank" />
+          <input
+            type="radio"
+            name="payment"
+            id="bank"
+            checked={paymentMethod === "bank"}
+            onChange={() => setPaymentMethod("bank")}
+          />
           <label htmlFor="bank">Bank</label>
         </div>
         <img src="/VISA.png" alt="" />
       </div>
       <div className="flex items-center gap-2">
-        <input type="radio" name="payment" id="cod" defaultChecked />
+        <input
+          type="radio"
+          name="payment"
+          id="cod"
+          checked={paymentMethod === "cod"}
+          onChange={() => setPaymentMethod("cod")}
+        />
         <label htmlFor="cod">Cash on delivery</label>
       </div>
 
@@ -69,8 +110,12 @@ function OrderSummary() {
         </button>
       </div>
 
-      <button className="bg-[#DB4444] text-white py-2 rounded-md w-fit px-6 mt-4">
-        Place Order
+      <button
+        onClick={handlePlaceOrder}
+        disabled={isLoading}
+        className="bg-[#DB4444] text-white py-2 rounded-md w-fit px-6 mt-4 disabled:opacity-50"
+      >
+        {isLoading ? "Placing order..." : "Place Order"}
       </button>
     </div>
   );

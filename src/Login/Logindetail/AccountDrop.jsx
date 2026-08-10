@@ -23,7 +23,7 @@ function AccountMenu() {
   const handleLogout = () => {
     localStorage.removeItem("token")
         localStorage.removeItem("currentUser")
-
+localStorage.removeItem("role")
     dispatch(logout())
     setOpen(false)
     navigate("/login")

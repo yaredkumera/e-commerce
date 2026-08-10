@@ -11,7 +11,7 @@ function ProductCard({ data, hide, heart }) {
   const [removeFromWishlistDB] = useRemoveFromWishlistMutation()
   const [addToCartDB] = useCreateCartMutation()
 
-  const [hoveredIndex, setHoveredIndex] = useState(null)
+  const [hoveredIndex, setHoveredIndex] = useState(null),,,,,,
 
   return (
     <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mx-10 my-5 mb-8 ">
