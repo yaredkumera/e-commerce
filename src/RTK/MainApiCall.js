@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://e-commerce-backend-vgk5.onrender.com',
+    baseUrl: import.meta.env.VITE_API_URL || 'https://e-commerce-backend-vgk5.onrender.com',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token')
       if (token) {
@@ -13,5 +13,5 @@ export const apiSlice = createApi({
     },
   }),
   tagTypes: ['products', 'cart', 'wishlist'],
-  endpoints: () => ({}), // intentionally empty — each feature file injects its own endpoints
+  endpoints: () => ({}), 
 })
