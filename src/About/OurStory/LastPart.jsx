@@ -21,14 +21,14 @@ function LastPart() {
 
 function RENDER({ feature }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-16 py-16 text-center mx-17 my-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-8 md:px-16 py-12 my-6 text-center w-full max-w-6xl mx-auto">
       {feature.map((elem, ind) => (
-        <div key={ind} className="flex flex-col items-center">
-          <div className="w-16 h-16 rounded-full   flex items-center justify-center mb-4">
-            <img src={elem.icon} className="w-16 h-16" />
+        <div key={ind} className="flex flex-col items-center justify-center p-4">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-gray-200 dark:bg-gray-800 p-3">
+            <img src={elem.icon} alt="" className="w-full h-full object-contain" />
           </div>
-          <p className="font-bold text-sm mb-1">{elem.title}</p>
-          <p className="text-xs text-text-secondary">{elem.desc}</p>
+          <p className="font-bold text-base mb-2">{elem.title}</p>
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{elem.desc}</p>
         </div>
       ))}
     </div>
