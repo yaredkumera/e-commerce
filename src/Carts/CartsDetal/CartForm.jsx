@@ -5,11 +5,11 @@ import {
   useUpdateCartMutation,
   useDeleteCartMutation,
 } from "../../RTK/CartApi";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function CartForm() {
-  const  navigate=useNavigate()
-  const  [index, setIndex] = useState(null);
+  const navigate = useNavigate();
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [deleteFromCart] = useDeleteCartMutation();
   const [updateCart] = useUpdateCartMutation();
   const { data: cartData } = useGetCartsQuery();
@@ -20,107 +20,150 @@ function CartForm() {
   }, 0);
 
   return (
-    <div className=" grid gap-6 w-full mt-7 ">
-      <div className="grid grid-cols-4 py-3 px-5 bg-bg-secondary rounded-lg font-medium text-gray-500 text-sm">
+    <div className="grid gap-6 w-full max-w-6xl mx-auto my-4">
+      {/* Desktop Table Header */}
+      <div className="hidden sm:grid grid-cols-4 py-4 px-6 bg-bg-secondary border border-gray-200 dark:border-gray-800 rounded-lg font-medium text-gray-500 text-sm">
         <p>Product</p>
-        <p className=" text-center">Price</p>
+        <p className="text-center">Price</p>
         <p className="text-center">Quantity</p>
         <p className="text-right">Subtotal</p>
       </div>
-      {cartList.map((item, inedx) => (
-        <div
-          key={item._id}
-          onMouseOver={() => setIndex(inedx)}
-          onMouseLeave={() => setIndex(null)}
-          className=" relative  grid grid-cols-4 gap-4 py-5 px-5 items-center bg-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg transition-shadow hover:shadow-md "
-        >
-          {index === inedx && (
-            <p
+
+      {/* Cart Items List */}
+      {cartList.length === 0 ? (
+        <div className="text-center py-12 border border-dashed border-gray-300 dark:border-gray-700 rounded-lg">
+          <p className="text-gray-500 font-medium">Your cart is empty</p>
+        </div>
+      ) : (
+        cartList.map((item, index) => (
+          <div
+            key={item._id}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            className="relative flex flex-col sm:grid sm:grid-cols-4 gap-4 p-4 sm:px-6 items-center bg-bg-secondary border border-gray-200 dark:border-gray-800 rounded-lg transition-shadow hover:shadow-md"
+          >
+            {/* Delete Button - Visible on hover on desktop, always visible on mobile */}
+            <button
               onClick={() => deleteFromCart(item._id)}
-              className="absolute top-2 left-2 text-white font-bold rounded-full w-6 h-6 bg-[#DB4444] flex items-center justify-center leading-none cursor-pointer z-10 hover:bg-red-600 transition-colors"
+              className="absolute top-2 right-2 sm:top-2 sm:left-2 text-white font-bold rounded-full w-6 h-6 bg-[#DB4444] flex items-center justify-center text-xs hover:bg-red-600 transition-colors z-10"
+              aria-label="Remove Item"
             >
               ✕
-            </p>
-          )}
-          <div className="flex gap-3 items-center ">
-            <img
-              src={item.product.image}
-              alt={item.product.name}
-              className="w-12 h-12 object-contain rounded-md bg-white p-1"
-            />
-            <p className="font-medium text-text-primary">{item.product.name}</p>
+            </button>
+
+            {/* Product Info */}
+            <div className="flex gap-3 items-center w-full sm:w-auto">
+              <img
+                src={item.product.image}
+                alt={item.product.name}
+                className="w-16 h-16 sm:w-12 sm:h-12 object-contain rounded-md bg-white p-1 flex-shrink-0"
+              />
+              <p className="font-medium text-text-primary text-sm sm:text-base line-clamp-2">
+                {item.product.name}
+              </p>
+            </div>
+
+            {/* Price (Mobile vs Desktop) */}
+            <div className="flex justify-between items-center w-full sm:justify-center">
+              <span className="sm:hidden text-gray-500 text-xs">Price:</span>
+              <p className="text-center text-text-primary font-medium">
+                ${item.product.price}
+              </p>
+            </div>
+
+            {/* Quantity Controls */}
+            <div className="flex justify-between items-center w-full sm:justify-center">
+              <span className="sm:hidden text-gray-500 text-xs">Quantity:</span>
+              <input
+                type="number"
+                value={item.quantity}
+                className="w-16 p-1.5 text-center bg-bg-primary border border-gray-200 dark:border-gray-700 rounded-lg focus:border-red-500 outline-none text-text-primary transition-colors text-sm"
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value >= 1 && value <= item.product.stock) {
+                    updateCart({ _id: item._id, quantity: value });
+                  }
+                }}
+                min={1}
+                max={item.product.stock}
+              />
+            </div>
+
+            {/* Subtotal */}
+            <div className="flex justify-between items-center w-full sm:justify-end">
+              <span className="sm:hidden text-gray-500 text-xs font-semibold">
+                Subtotal:
+              </span>
+              <p className="text-right font-semibold text-text-primary">
+                ${item.quantity * item.product.price}
+              </p>
+            </div>
           </div>
-          <p className=" text-center text-text-primary">${item.product.price}</p>
-          <div className="flex justify-center">
-            <input
-              type="number"
-              value={item.quantity}
-              className="w-16 p-2 text-center bg-bg-primary border border-gray-200 dark:border-gray-700 rounded-lg  focus:border-green-400  outline-none text-text-primary transition-colors"
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                if (value >= 1 && value <= item.product.stock) {
-                  updateCart({ _id: item._id, quantity: value });
-                }
-              }}
-              min={1}
-              max={item.product.stock}
-            />
-          </div>
-          <p className="text-right font-medium text-text-primary">${item.quantity * item.product.price}</p>
-        </div>
-      ))}
-      <div className="flex justify-between ">
+        ))
+      )}
+
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row justify-between gap-3 mt-2">
         <ButtonCreator
-          STYLE={"border border-gray-200 dark:border-gray-700 py-2.5 px-5 rounded-lg font-medium text-text-primary hover:bg-[#DB4444] hover:text-white hover:border-[#DB4444] transition-colors "}
-         children={" Return To Shop"}
-          onclick={()=>navigate('/')}
+          STYLE={
+            "w-full sm:w-auto border border-gray-300 dark:border-gray-700 py-2.5 px-6 rounded-md font-medium text-text-primary hover:bg-[#DB4444] hover:text-white hover:border-[#DB4444] transition-colors text-sm text-center"
+          }
+          children={"Return To Shop"}
+          onclick={() => navigate("/")}
         />
         <ButtonCreator
-          STYLE={"border border-gray-200 dark:border-gray-700 py-2.5 px-5 rounded-lg font-medium text-text-primary hover:bg-[#DB4444] hover:text-white hover:border-[#DB4444] transition-colors"}
-          children={" Update Cart"}
+          STYLE={
+            "w-full sm:w-auto border border-gray-300 dark:border-gray-700 py-2.5 px-6 rounded-md font-medium text-text-primary hover:bg-[#DB4444] hover:text-white hover:border-[#DB4444] transition-colors text-sm text-center"
+          }
+          children={"Update Cart"}
         />
       </div>
-      <div className="flex justify-between items-start my-10">
-        <div className="flex gap-3">
+
+      {/* Coupon & Checkout Area */}
+      <div className="flex flex-col lg:flex-row justify-between items-start gap-8 my-8">
+        {/* Coupon Input */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:max-w-md">
           <input
             type="text"
             placeholder="Coupon Code"
-            className="max-w-48 px-4 py-2.5 rounded-lg bg-bg-secondary border border-gray-200 dark:border-gray-700 text-text-primary placeholder-gray-400 outline-none focus:border-green-400 transition-colors"
+            className="w-full px-4 py-2.5 rounded-md bg-bg-secondary border border-gray-300 dark:border-gray-700 text-text-primary placeholder-gray-400 outline-none focus:border-red-500 transition-colors text-sm"
           />
-
           <ButtonCreator
             STYLE={
-              "max-w-48 px-5 py-2.5 rounded-lg bg-[#DB4444] text-white font-medium hover:bg-red-600 transition-colors"
-            } 
-            children={"  Apply Coupon"}
+              "w-full sm:w-auto sm:whitespace-nowrap px-6 py-2.5 rounded-md bg-[#DB4444] text-white font-medium hover:bg-red-600 transition-colors text-sm text-center"
+            }
+            children={"Apply Coupon"}
           />
         </div>
 
-        <div className="grid gap-3 p-5 bg-bg-secondary border border-gray-200 dark:border-gray-700 rounded-xl w-80">
-          <p className="text-xl font-semibold text-text-primary">Cart Total</p>
+        {/* Cart Total Box */}
+        <div className="grid gap-4 p-6 bg-bg-secondary border border-gray-300 dark:border-gray-700 rounded-md w-full lg:w-96">
+          <p className="text-lg font-bold text-text-primary">Cart Total</p>
 
           <Simlify
-            STYLE={"flex justify-between text-text-primary"}
+            STYLE={"flex justify-between text-text-primary text-sm"}
             name="Subtotal:"
             value={subtotal}
           />
-          <hr className="border-gray-200 dark:border-gray-700" />
+          <hr className="border-gray-200 dark:border-gray-800" />
           <Simlify
-            STYLE={"flex justify-between text-text-primary"}
+            STYLE={"flex justify-between text-text-primary text-sm"}
             name="Shipping:"
             value={"Free"}
           />
-          <hr className="border-gray-200 dark:border-gray-700" />
+          <hr className="border-gray-200 dark:border-gray-800" />
           <Simlify
-            STYLE={"flex justify-between font-semibold text-text-primary"}
+            STYLE={"flex justify-between font-bold text-text-primary text-base"}
             name="Total:"
             value={subtotal}
           />
 
-          <NavLink to={"/checkout"}>
+          <NavLink to={"/checkout"} className="w-full mt-2">
             <ButtonCreator
-              STYLE={"bg-[#DB4444] text-white block mx-auto px-5 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors w-full"}
-              children={"  Proceed to Checkout"}
+              STYLE={
+                "bg-[#DB4444] text-white block px-5 py-3 rounded-md font-medium hover:bg-red-600 transition-colors w-full text-center text-sm"
+              }
+              children={"Proceed to Checkout"}
             />
           </NavLink>
         </div>
@@ -133,7 +176,7 @@ function Simlify({ name, value, STYLE }) {
   return (
     <div className={STYLE}>
       <p>{name}</p>
-      <p>${value}</p>
+      <p>{typeof value === "number" ? `$${value}` : value}</p>
     </div>
   );
 }
