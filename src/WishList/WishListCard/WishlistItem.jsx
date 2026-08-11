@@ -1,7 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useCreateCartMutation } from "../../RTK/CartApi";
-import { useRemoveFromWishlistMutation } from "../../RTK/whishListApi";
+import { useRemoveFromWishlistMutation } from "../../RTK/WhishListApi";
 
 function WishlistItem({ item }) {
   const [hovered, setHovered] = useState(false)
