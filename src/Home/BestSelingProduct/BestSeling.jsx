@@ -13,7 +13,7 @@ function BestSeling() {
   const visibleProducts = ShowAll ? bestSelling : bestSelling.slice(0, 4);
 
   return (
-    <div>
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 my-4">
       <SectionHeader
         label="This Month"
         title="Best Selling Products"

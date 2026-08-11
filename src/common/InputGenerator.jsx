@@ -29,7 +29,7 @@ function InputGenerator({
       <input
         id={inputId}
         name={name}
-        className={STYLE}
+        className={STYLE+" focus:border-green-400"}
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}
