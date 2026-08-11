@@ -13,7 +13,7 @@ function InputGenerator({ label, name, type, setValue, onChange, value, placehol
       <input
         id={id}
         name={name}
-        className={STYLE}
+        className={STYLE+" focus:border-green-400"}
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}

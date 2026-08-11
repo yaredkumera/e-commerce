@@ -3,9 +3,13 @@ import ProductManagment from "./productManagment"
 import AdminOrders from "./AdminOrders"
 import AdminUsers from "./AdminUsers"
 import AdminHome from "./AdminHome"
+import { useGetAllOrdersQuery } from "../RTK/AdminApi"
+import { FiHome, FiBox, FiShoppingBag, FiUsers } from "react-icons/fi"
 
 function AdminDashboard() {
   const [tab, setTab] = useState("home")
+  const { data } = useGetAllOrdersQuery()
+  const pendingCount = (data?.orders ?? []).filter((o) => o.status === "pending").length
 
   const tabs = {
     home: <AdminHome />,
@@ -14,18 +18,49 @@ function AdminDashboard() {
     users: <AdminUsers />,
   }
 
+  const navItems = [
+    { key: "home", label: "Home", icon: <FiHome size={18} /> },
+    { key: "products", label: "Products", icon: <FiBox size={18} /> },
+    { key: "orders", label: "Orders", icon: <FiShoppingBag size={18} />, badge: pendingCount },
+    { key: "users", label: "Users", icon: <FiUsers size={18} /> },
+  ]
+
   return (
-    <div className="grid md:grid-cols-[220px_1fr] min-h-screen">
-      <div className="border-r p-4 flex flex-col gap-2">
-        {["home", "products", "orders", "users"].map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`text-left px-3 py-2 rounded capitalize ${tab === t ? "bg-[#DB4444] text-white" : "hover:bg-gray-100"}`}
-          >
-            {t}
-          </button>
-        ))}
+    <div className="grid md:grid-cols-[240px_1fr] min-h-screen bg-bg-secondary text-text-primary">
+      <div className="border-r border-gray-200 dark:border-gray-700 p-5 flex flex-col gap-1">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-2">
+          Admin Panel
+        </p>
+
+        {navItems.map((item) => {
+          const isActive = tab === item.key
+          return (
+            <button
+              key={item.key}
+              onClick={() => setTab(item.key)}
+              className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200  cursor-pointer ${
+                isActive
+                  ? "bg-[#DB4444] text-white shadow-sm"
+                  : "text-gray-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-text-primary"
+              }`}
+            >
+              {isActive && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-white rounded-r-full" />
+              )}
+              <span className={isActive ? "text-white" : "text-gray-400"}>{item.icon}</span>
+              <span className="flex-1 text-left">{item.label}</span>
+              {item.badge > 0 && (
+                <span
+                  className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    isActive ? "bg-white/20 text-white" : "bg-[#FDEAEA] text-[#DB4444]"
+                  }`}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          )
+        })}
       </div>
       <div className="p-8">{tabs[tab]}</div>
     </div>

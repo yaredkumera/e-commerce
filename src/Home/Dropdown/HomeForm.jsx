@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import StateControler from "./StateControler"
-import { FiChevronRight, FiChevronLeft } from "react-icons/fi"
+import { FiChevronRight } from "react-icons/fi"
 
 const Mag = ["/FirstHomePageIhmage.png", "/About/TeamImagve/Tom.png", "/About/TeamImagve/Emma.png"]
 const categories = [
@@ -22,29 +22,29 @@ function HomeForm() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
 
   return (
-    <div className="grid md:grid-cols-[250px_1fr] gap-8 rounded-md overflow-hidden mx-10 my-8">
-      <div className="divide-y divide-text-secondary py-2">
+    <div className="grid md:grid-cols-[260px_1fr] gap-6 mx-10 my-8">
+      <div className="bg-bg-secondary border border-gray-200 dark:border-gray-700 rounded-xl divide-y divide-gray-200 dark:divide-gray-700 py-2 h-fit">
         {categories.map((cat, i) => (
           <div
             key={i}
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className="relative flex items-center justify-between py-2.5 px-5 hover:text-red-900 cursor-pointer text-sm"
             onClick={() => navigate(`/shop?category=${encodeURIComponent(cat.name)}`)}
+            className="relative flex items-center justify-between py-2.5 px-5 cursor-pointer text-sm text-text-primary hover:text-[#DB4444] transition-colors"
           >
             <span>{cat.name}</span>
-            {cat.hasArrow && <FiChevronRight className="text-xs" />}
+            {cat.hasArrow && <FiChevronRight className="text-xs text-gray-400" />}
 
             {cat.hasArrow && hoveredIndex === i && (
-              <div className="absolute left-full top-0 bg-white divide-y divide-gray-200 shadow-md w-48 py-2 z-10">
+              <div className="absolute left-full top-0 bg-bg-primary border border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700 shadow-lg rounded-lg w-48 py-2 z-10">
                 {cat.submenu.map((item, j) => (
                   <div
                     key={j}
-                    className="px-4 py-2 hover:bg-gray-100 hover:text-red-500"
                     onClick={(e) => {
                       e.stopPropagation()
                       navigate(`/shop?category=${encodeURIComponent(item)}`)
                     }}
+                    className="px-4 py-2 text-sm text-text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#DB4444] transition-colors"
                   >
                     {item}
                   </div>
@@ -55,16 +55,15 @@ function HomeForm() {
         ))}
       </div>
 
-      <div className="relative bg-black text-white flex items-center px-16 py-10">
-        <div>
+      <div className="relative bg-black text-white flex items-center px-16 py-10 rounded-xl overflow-hidden">
+        <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-2xl"></span>
-            <span className="text-sm">iPhone 14 Series</span>
+            <span className="text-sm text-gray-300">iPhone 14 Series</span>
           </div>
           <h1 className="text-4xl font-bold mb-6 leading-tight">
             Up to 10% <br /> off Voucher
           </h1>
-          <button className="flex items-center gap-2 border-b pb-1">
+          <button className="flex items-center gap-2 border-b border-white pb-1 hover:opacity-80 transition-opacity">
             Shop Now <span>→</span>
           </button>
         </div>
@@ -72,7 +71,7 @@ function HomeForm() {
         <img
           src={Mag[activeSlide]}
           alt="iPhone 14"
-          className="absolute right-10 top-1/2 -translate-y-1/2 h-[80%] object-contain z-10"
+          className="absolute right-10 top-1/2 -translate-y-1/2 h-[80%] object-contain z-0"
         />
         <StateControler Mag={Mag} setActiveSlide={setActiveSlide} activeSlide={activeSlide} />
       </div>

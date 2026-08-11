@@ -1,6 +1,9 @@
 import { FiPhoneCall, FiMail } from "react-icons/fi";
 
 function ContactForm() {
+  const inputStyle =
+    "w-full bg-bg-secondary border border-gray-200 dark:border-gray-700 focus:border-green-400 outline-none px-4 py-3 rounded-lg text-text-primary placeholder-gray-400 transition-colors";
+
   return (
     <div className="grid md:grid-cols-[1fr_2fr] gap-8 px-16 py-10 mb-18">
       <div className="grid py-5 px-6 rounded-md shadow-md h-fit gap-3">
@@ -26,30 +29,18 @@ function ContactForm() {
       </div>
 
       <div className="rounded-md shadow-md py-5 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-black font-semibold">
-          <input
-            type="text"
-            placeholder="Your Name*"
-            className="bg-[#f5f5f5] placeholder-gray-400 px-4 py-3 rounded outline-none focus:border border-green-600  "
-          />
-          <input
-            type="email"
-            placeholder="Your Email*"
-            className="bg-[#f5f5f5] placeholder-gray-400 px-4 py-3 rounded outline-none focus:border border-green-600 "
-          />
-          <input
-            type="tel"
-            placeholder="Your Phone*"
-            className="bg-[#f5f5f5] placeholder-gray-400 px-4 py-3 rounded outline-none focus:border border-green-600 "
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input type="text" placeholder="Your Name*" className={inputStyle} />
+          <input type="email" placeholder="Your Email*" className={inputStyle} />
+          <input type="tel" placeholder="Your Phone*" className={inputStyle} />
         </div>
         <textarea
-          className="bg-[#f5f5f5] w-full min-h-[150px] p-4 mt-4 rounded border border-transparent outline-none focus:border-green-600 placeholder-gray-400 text-black font-semibold"
+          className={`${inputStyle} w-full min-h-[150px] mt-4 resize-none`}
           placeholder="Your Message"
         ></textarea>
 
         <div className="flex justify-end mt-18">
-          <button className="bg-red-700 text-white py-3 px-8 rounded">
+          <button className="bg-[#DB4444] text-white py-3 px-8 rounded-lg font-medium hover:bg-red-600 transition-colors">
             Send Message
           </button>
         </div>
