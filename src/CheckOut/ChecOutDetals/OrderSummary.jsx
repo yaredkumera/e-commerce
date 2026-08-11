@@ -7,10 +7,14 @@ function OrderItem({ image, name, price }) {
   return (
     <div className="flex justify-between items-center py-2">
       <div className="flex items-center gap-3">
-        <img src={image} alt={name} className="w-11 h-11 object-contain rounded-md bg-white p-1" />
-        <p className="text-text-primary text-sm">{name}</p>
+        <img
+          src={image}
+          alt={name}
+          className="w-10 h-10 object-contain rounded-md bg-white p-1 flex-shrink-0"
+        />
+        <p className="text-text-primary text-xs sm:text-sm line-clamp-1">{name}</p>
       </div>
-      <p className="text-text-primary text-sm font-medium">${price}</p>
+      <p className="text-text-primary text-xs sm:text-sm font-medium ml-2">${price}</p>
     </div>
   );
 }
@@ -24,9 +28,12 @@ function OrderSummary({ form }) {
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const [error, setError] = useState("");
 
-  let subtotal = cartdata.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-  let shipping = 0;
-  let total = subtotal + shipping;
+  const subtotal = cartdata.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  );
+  const shipping = 0;
+  const total = subtotal + shipping;
 
   const handlePlaceOrder = async () => {
     const { firstName, streetAddress, townCity, phoneNumber, email } = form;
@@ -44,52 +51,69 @@ function OrderSummary({ form }) {
   };
 
   return (
-    <div className="grid gap-2 bg-bg-secondary border border-gray-200 dark:border-gray-700 rounded-xl p-6">
-      {error && <p className="text-red-600 text-sm font-medium mb-2">{error}</p>}
+    <div className="grid gap-3 bg-bg-secondary border border-gray-200 dark:border-gray-800 rounded-xl p-4 sm:p-6">
+      {error && <p className="text-red-500 text-xs sm:text-sm font-medium">{error}</p>}
 
-      <div className="grid gap-1 mb-2">
+      <div className="grid gap-1 mb-2 max-h-60 overflow-y-auto pr-1">
         {cartdata.map((item) => (
-          <OrderItem key={item._id} image={item.product.image} name={item.product.name} price={item.product.price} />
+          <OrderItem
+            key={item._id}
+            image={item.product.image}
+            name={item.product.name}
+            price={item.product.price}
+          />
         ))}
       </div>
 
-      <hr className="border-gray-200 dark:border-gray-700" />
-      <div className="flex justify-between py-2 text-text-primary text-sm">
+      <hr className="border-gray-200 dark:border-gray-800" />
+      <div className="flex justify-between py-1.5 text-text-primary text-sm">
         <p>Subtotal:</p>
         <p>${subtotal}</p>
       </div>
-      <hr className="border-gray-200 dark:border-gray-700" />
-      <div className="flex justify-between py-2 text-text-primary text-sm">
+      <hr className="border-gray-200 dark:border-gray-800" />
+      <div className="flex justify-between py-1.5 text-text-primary text-sm">
         <p>Shipping:</p>
         <p>{shipping === 0 ? "Free" : `$${shipping}`}</p>
       </div>
-      <hr className="border-gray-200 dark:border-gray-700" />
-      <div className="flex justify-between py-2 font-semibold text-text-primary">
+      <hr className="border-gray-200 dark:border-gray-800" />
+      <div className="flex justify-between py-1.5 font-bold text-text-primary">
         <p>Total:</p>
         <p>${total}</p>
       </div>
 
-      <div className="grid gap-3 mt-2">
-        <label className="flex items-center justify-between cursor-pointer">
+      <div className="grid gap-3 my-2">
+        <label className="flex items-center justify-between cursor-pointer p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800/50">
           <span className="flex items-center gap-2">
-            <input type="radio" name="payment" checked={paymentMethod === "bank"} onChange={() => setPaymentMethod("bank")} className="accent-[#DB4444]" />
-            <span className="text-text-primary text-sm">Bank</span>
+            <input
+              type="radio"
+              name="payment"
+              checked={paymentMethod === "bank"}
+              onChange={() => setPaymentMethod("bank")}
+              className="accent-emerald-600"
+            />
+            <span className="text-text-primary text-xs sm:text-sm">Bank</span>
           </span>
-          <img src="/VISA.png" alt="" className="h-5" />
+          <img src="/VISA.png" alt="Visa" className="h-4" />
         </label>
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="payment" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} className="accent-[#DB4444]" />
-          <span className="text-text-primary text-sm">Cash on delivery</span>
+        <label className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800/50">
+          <input
+            type="radio"
+            name="payment"
+            checked={paymentMethod === "cod"}
+            onChange={() => setPaymentMethod("cod")}
+            className="accent-emerald-600"
+          />
+          <span className="text-text-primary text-xs sm:text-sm">Cash on delivery</span>
         </label>
       </div>
 
-      <div className="flex gap-3 mt-3">
+      <div className="flex flex-col sm:flex-row gap-2 mt-1">
         <input
           type="text"
           placeholder="Coupon Code"
-          className="flex-1 py-2.5 px-4 rounded-lg bg-bg-primary border border-gray-200 dark:border-gray-700 outline-none focus:border-[#DB4444] text-text-primary placeholder-gray-400 transition-colors"
+          className="flex-1 py-2 px-3 rounded-md bg-bg-primary border border-gray-200 dark:border-gray-800 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-text-primary placeholder-gray-400 transition-colors text-sm"
         />
-        <button className="bg-[#DB4444] text-white px-5 rounded-lg font-medium hover:bg-red-600 transition-colors whitespace-nowrap">
+        <button className="bg-[#DB4444] text-white px-4 py-2 rounded-md font-medium hover:bg-red-600 active:bg-red-700 transition-colors text-sm whitespace-nowrap">
           Apply Coupon
         </button>
       </div>
@@ -97,7 +121,7 @@ function OrderSummary({ form }) {
       <button
         onClick={handlePlaceOrder}
         disabled={isLoading}
-        className="bg-[#DB4444] text-white py-2.5 rounded-lg font-medium mt-3 hover:bg-red-600 transition-colors disabled:opacity-50"
+        className="w-full bg-[#DB4444] text-white py-3 rounded-md font-medium mt-2 hover:bg-red-600 active:bg-red-700 transition-colors disabled:opacity-50 text-sm"
       >
         {isLoading ? "Placing order..." : "Place Order"}
       </button>
