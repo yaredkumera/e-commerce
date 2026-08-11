@@ -1,4 +1,4 @@
-import { useGetWhishListQuery } from "../../RTK/whishListApi";
+import { useGetWhishListQuery } from "../../RTK/WhishListApi";
 import { useGetCartsQuery, useCreateCartMutation } from "../../RTK/CartApi";
 import WishlistItem from "./WishlistItem";
 

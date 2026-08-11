@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useCreateCartMutation } from "../../RTK/CartApi";
-import { useGetWhishListQuery, useAddToWishlistMutation, useRemoveFromWishlistMutation } from "../../RTK/whishListApi";
+import { useGetWhishListQuery, useAddToWishlistMutation, useRemoveFromWishlistMutation } from "../../RTK/WhishListApi";
 
 function ProductCard({ data, hide, heart }) {
   const { data: wishlistData } = useGetWhishListQuery()

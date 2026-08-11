@@ -5,7 +5,7 @@ import {
   useGetWhishListQuery,
   useAddToWishlistMutation,
   useRemoveFromWishlistMutation,
-} from "../../RTK/whishListApi"
+} from "../../RTK/WhishListApi"
 
 function ExploreCard({ data: products }) {
   const { data: wishlistData } = useGetWhishListQuery()

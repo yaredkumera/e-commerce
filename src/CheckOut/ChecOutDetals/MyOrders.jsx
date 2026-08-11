@@ -1,4 +1,4 @@
-import { useGetMyOrdersQuery } from "../../RTK/OrderApi";
+import { useGetMyOrdersQuery } from "../../RTK/orderApi";
 import NavLinks from "../../common/NavLinks";
 import { FiPackage } from "react-icons/fi";
 

@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux";
 import useTheme from "./useTheme";
 import { useGetCartsQuery } from "../RTK/CartApi";
-import { useGetWhishListQuery } from "../RTK/whishListApi";
+import { useGetWhishListQuery } from "../RTK/WhishListApi";
 import AccountDrop from "../Login/Logindetail/AccountDrop"
 import { useState } from "react";
 
