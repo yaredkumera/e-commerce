@@ -19,13 +19,13 @@ function AdminUsers() {
   );
 
   return (
-    <div>
+    <div className="w-full max-w-full">
       <div className="mb-6">
         <h1 className="text-xl sm:text-2xl font-bold text-text-primary">Users</h1>
         <p className="text-xs sm:text-sm text-gray-500 mt-1">{users.length} registered accounts</p>
       </div>
 
-      <div className="relative max-w-sm mb-6">
+      <div className="relative max-w-sm mb-6 w-full">
         <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
         <input
           value={search}
@@ -38,7 +38,7 @@ function AdminUsers() {
       {isLoading ? (
         <p className="text-gray-500 text-sm">Loading users...</p>
       ) : (
-        <div className="bg-bg-secondary border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
+        <div className="bg-bg-secondary border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden w-full">
           {filtered.map((u, i) => (
             <div
               key={u._id}
@@ -46,17 +46,17 @@ function AdminUsers() {
                 i !== filtered.length - 1 ? "border-b border-gray-200 dark:border-gray-800" : ""
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#DB4444] text-white flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
                   {getInitials(u.fullName)}
                 </div>
-                <div className="overflow-hidden">
+                <div className="min-w-0 flex-1">
                   <p className="font-semibold text-xs sm:text-sm text-text-primary truncate">{u.fullName}</p>
                   <p className="text-xs text-gray-500 truncate">{u.email}</p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 dark:border-gray-800">
+              <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100 dark:border-gray-800 shrink-0">
                 <span
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold ${
                     u.role === "admin"

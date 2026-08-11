@@ -26,35 +26,35 @@ function AdminDashboard() {
   ];
 
   return (
-    <div className="grid md:grid-cols-[220px_1fr] lg:grid-cols-[240px_1fr] min-h-screen bg-bg-secondary text-text-primary">
-      {/* Sidebar / Mobile Top Navigation */}
-      <div className="border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 p-4 sm:p-5 flex flex-col justify-start bg-bg-secondary">
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-1 sm:px-3 mb-3">
+    <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] min-h-screen bg-bg-secondary text-text-primary w-full max-w-full overflow-hidden">
+      {/* Sidebar Navigation */}
+      <div className="border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 p-4 sm:p-5 flex flex-col gap-2 shrink-0 bg-bg-secondary">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-1">
           Admin Panel
         </p>
 
-        {/* Scrollable horizontal container on mobile, stacked list on desktop */}
-        <div className="flex md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+        {/* Column Navigation Buttons */}
+        <div className="flex flex-col gap-1.5 w-full">
           {navItems.map((item) => {
             const isActive = tab === item.key;
             return (
               <button
                 key={item.key}
                 onClick={() => setTab(item.key)}
-                className={`relative flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                className={`relative flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer w-full ${
                   isActive
                     ? "bg-[#DB4444] text-white shadow-sm"
                     : "text-gray-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-text-primary"
                 }`}
               >
                 {isActive && (
-                  <span className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-white rounded-r-full" />
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-white rounded-r-full" />
                 )}
                 <span className={isActive ? "text-white" : "text-gray-400"}>{item.icon}</span>
                 <span className="flex-1 text-left">{item.label}</span>
                 {item.badge > 0 && (
                   <span
-                    className={`text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                       isActive ? "bg-white/20 text-white" : "bg-[#FDEAEA] text-[#DB4444]"
                     }`}
                   >
@@ -67,8 +67,8 @@ function AdminDashboard() {
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="p-4 sm:p-6 md:p-8 max-w-7xl w-full">{tabs[tab]}</div>
+      {/* Main Content Viewport */}
+      <div className="p-4 sm:p-6 md:p-8 w-full max-w-full overflow-x-hidden">{tabs[tab]}</div>
     </div>
   );
 }
