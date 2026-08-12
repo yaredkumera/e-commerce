@@ -1,8 +1,9 @@
 import { useGetProductQuery, useUpdateProductMutation, useDeleteProductMutation, useCreateProductMutation } from "../RTK/ProductApi";
 import { FaEdit, FaTrash, FaPlus, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-
+import { useUploadImageMutation } from "../RTK/uploadApi";
 function ProductManagment() {
+  const [uploadImage, { isLoading: isUploading }] = useUploadImageMutation()
   const { data } = useGetProductQuery();
   const products = data?.products ?? [];
 
@@ -22,12 +23,24 @@ function ProductManagment() {
     image: "",
   });
 
+  const handleImageUpload = async (e) => {
+  const file = e.target.files[0]
+  if (!file) return
+
+  const formData = new FormData()
+  formData.append('image', file)
+  try {
+    const result = await uploadImage(formData).unwrap()
+    setDetails((prev) => ({ ...prev, image: result.data.url }))
+  } catch (err) {
+    console.error("Upload failed", err)
+  }
+}
   const resetForm = () => {
     setDetails({ name: "", description: "", category: "", price: "", rating: "", stock: "", image: "" });
     setEditingId(null);
     setIsOpen(false);
   };
-
   const handleOpenAddModal = () => {
     setEditingId(null);
     setDetails({ name: "", description: "", category: "", price: "", rating: "", stock: "", image: "" });
@@ -212,19 +225,21 @@ function ProductManagment() {
                   required
                 />
               </div>
-              <div className="sm:col-span-2">
-                <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
-                  Image path
-                </label>
-                <input
-                  placeholder="/Product1.png"
-                  value={details.image}
-                  onChange={handleOnchange}
-                  name="image"
-                  className={inputStyle}
-                  required
-                />
-              </div>
+
+<div className="col-span-2">
+  <label className="text-sm font-medium text-gray-500 mb-1.5 block">Product image</label>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageUpload}
+    className={inputStyle}
+  />
+  {isUploading && <p className="text-sm text-gray-500 mt-1">Uploading...</p>}
+  {details.image && (
+    <img src={details.image} alt="preview" className="w-20 h-20 object-contain mt-2 rounded-md border border-gray-200 dark:border-gray-700" />
+  )}
+</div>
+
               <div className="sm:col-span-2">
                 <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
                   Description
