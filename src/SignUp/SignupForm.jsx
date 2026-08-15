@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import InputGenerator from "../common/InputGenerator";
 import { useState } from "react";
 import { useSignupMutation } from "../RTK/SignUpApi";
-
+import GoogleButton from "./GoogleButton";
 function SignupForm() {
   const navigate = useNavigate();
   const [sendToDataBase] = useSignupMutation();
@@ -86,10 +86,8 @@ function SignupForm() {
               Create Account
             </button>
 
-            <button className="flex items-center justify-center gap-3 border border-gray-300 dark:border-gray-700 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg py-3 w-full transition-colors cursor-pointer text-xs sm:text-sm font-medium">
-              <FcGoogle className="text-lg sm:text-xl" />
-              <span>Sign up with Google</span>
-            </button>
+          
+            <GoogleButton/>
 
             <p className="text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
               Already have account?{" "}

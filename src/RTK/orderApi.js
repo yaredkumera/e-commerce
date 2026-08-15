@@ -19,7 +19,15 @@ export const orderApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['orders'],
     }),
+    getOneOrder: builder.query({
+  query: (id) => `/api/orders/${id}`,
+  transformResponse: (response) => ({
+    success: response.success,
+    message: response.message,
+    order: response.data,
+  }),
+}),
   }),
 })
 
-export const { useCreateOrderMutation, useGetMyOrdersQuery } = orderApi
+export const { useCreateOrderMutation, useGetMyOrdersQuery,useGetOneOrderQuery } = orderApi

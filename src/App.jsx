@@ -16,11 +16,15 @@ import BroweserComponent from "./common/BroweserComponent"
 import MyOrders from "./CheckOut/ChecOutDetals/MyOrders";
 import ForgotPassword from "./Login/Logindetail/ForgotPassword";
 import MainAdminPage from "./Admin/MainAdminPage";
+import PaymentFailed from "./CheckOut/ChecOutDetals/paymentFailed";
+import PaymentSuccess from "./CheckOut/ChecOutDetals/paymentsucces";
 export default function App() {
   return (
     <div>
       <Header />
       <Routes>
+        <Route path="/payment-success/:orderId" element={<PaymentSuccess />} />
+<Route path="/payment-failed/:orderId" element={<PaymentFailed />} />
                 <Route path="/admin" element={<MainAdminPage />} />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
