@@ -1,4 +1,6 @@
 import { apiSlice } from './MainApiCall'
+import toast from 'react-hot-toast'
+
 export const cartApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCarts: builder.query({
@@ -10,6 +12,7 @@ export const cartApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['cart'],
     }),
+
     createCart: builder.mutation({
       query: (newdata) => ({
         url: "/api/cart",
@@ -21,8 +24,17 @@ export const cartApi = apiSlice.injectEndpoints({
         message: response.message,
         item: response.data,
       }),
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          toast.success(data.message || "Added to cart", { duration: 3000 });
+        } catch (err) {
+          toast.error(err.error?.data?.message || "Failed to add to cart", { duration: 3000 });
+        }
+      },
       invalidatesTags: ['cart'],
     }),
+
     updateCart: builder.mutation({
       query: ({ _id, ...updated }) => ({
         url: `/api/cart/${_id}`,
@@ -34,13 +46,35 @@ export const cartApi = apiSlice.injectEndpoints({
         message: response.message,
         item: response.data,
       }),
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          toast.success(data.message || "Cart updated", { duration: 2000 });
+        } catch (err) {
+          toast.error(err.error?.data?.message || "Failed to update cart", { duration: 3000 });
+        }
+      },
       invalidatesTags: ['cart'],
     }),
+
     deleteCart: builder.mutation({
       query: (id) => ({
         url: `/api/cart/${id}`,
         method: "DELETE",
       }),
+      transformResponse: (response) => ({
+        success: response.success,
+        message: response.message,
+        data: response.data,
+      }),
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          toast.success(data.message || "Item removed from cart", { duration: 3000 });
+        } catch (err) {
+          toast.error(err.error?.data?.message || "Failed to remove item", { duration: 3000 });
+        }
+      },
       invalidatesTags: ['cart'],
     }),
   }),

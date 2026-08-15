@@ -6,6 +6,7 @@ import { useLoginMutation } from "../../RTK/LoginApi";
 import { login } from "./AuthSlice";
 import InputGenerator from "../../common/InputGenerator";
 import toast from 'react-hot-toast';
+
 export default function LoginForm() {
   const [loginToAccount] = useLoginMutation();
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export default function LoginForm() {
   const handleLogin = async (e) => {
     if (e) e.preventDefault();
     if (!(form.email && form.password)) {
-toast.error("please fill out all field",{duration:3000});
+      toast.error("Please fill out all fields", { duration: 3000 });
       return;
     }
     try {
@@ -31,6 +32,7 @@ toast.error("please fill out all field",{duration:3000});
       localStorage.setItem("role", data.role);
       dispatch(login(data.user));
 
+      toast.success("Logged in successfully!", { duration: 3000 });
       setForm({ email: "", password: "" });
       if (data.role === "admin") {
         navigate("/admin");
@@ -38,7 +40,9 @@ toast.error("please fill out all field",{duration:3000});
         navigate("/");
       }
     } catch (err) {
-      setError(err.data?.message || "Login Failed");
+      const errorMessage = err.data?.message || "Login Failed";
+      setError(errorMessage);
+      toast.error(errorMessage, { duration: 3000 });
     }
   };
 

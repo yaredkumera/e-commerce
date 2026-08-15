@@ -1,9 +1,10 @@
-import { FcGoogle } from "react-icons/fc";
 import { NavLink, useNavigate } from "react-router-dom";
 import InputGenerator from "../common/InputGenerator";
 import { useState } from "react";
 import { useSignupMutation } from "../RTK/SignUpApi";
 import GoogleButton from "./GoogleButton";
+import toast from 'react-hot-toast';
+
 function SignupForm() {
   const navigate = useNavigate();
   const [sendToDataBase] = useSignupMutation();
@@ -21,12 +22,19 @@ function SignupForm() {
     setSignupform((p) => ({ ...p, [name]: value }));
   };
 
-  const checkAndSendFormToDB = () => {
-    if (signupform.fullName && signupform.email && signupform.password) {
-      sendToDataBase(signupform);
-      setSignupform({ fullName: "", email: "", password: "" });
-      navigate("/");
+  const checkAndSendFormToDB = async () => {
+    if (!signupform.fullName || !signupform.email || !signupform.password) {
+      toast.error("Please fill out all fields", { duration: 3000 });
       return;
+    }
+
+    try {
+      await sendToDataBase(signupform).unwrap();
+      toast.success("Account created successfully!", { duration: 3000 });
+      setSignupform({ fullName: "", email: "", password: "" });
+      navigate("/"); 
+    } catch (err) {
+      toast.error(err.data?.message || "Registration failed", { duration: 3000 });
     }
   };
 
@@ -86,8 +94,7 @@ function SignupForm() {
               Create Account
             </button>
 
-          
-            <GoogleButton/>
+            <GoogleButton />
 
             <p className="text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
               Already have account?{" "}

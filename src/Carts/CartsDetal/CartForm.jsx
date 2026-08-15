@@ -6,7 +6,7 @@ import {
   useDeleteCartMutation,
 } from "../../RTK/CartApi";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 function CartForm() {
   const navigate = useNavigate();
   const [deleteFromCart] = useDeleteCartMutation();
@@ -44,7 +44,7 @@ function CartForm() {
               className="absolute top-2 right-2 sm:top-2 sm:left-2 text-white font-bold rounded-full w-6 h-6 bg-[#DB4444] active:bg-red-700 hover:bg-red-600 transition-colors flex items-center justify-center text-xs z-10"
               aria-label="Remove product"
             >
-              ✕
+              ✕ 
             </button>
 
             {/* Product description */}
@@ -70,19 +70,23 @@ function CartForm() {
             {/* Quantity */}
             <div className="flex justify-between items-center w-full sm:justify-center">
               <span className="sm:hidden text-gray-500 text-xs">Quantity:</span>
-              <input
-                type="number"
-                value={item.quantity}
-                className="w-16 p-1.5 text-center bg-bg-primary border border-gray-200 dark:border-gray-700 rounded-lg focus:border-red-500 outline-none text-text-primary transition-colors text-sm"
-                onChange={(e) => {
-                  const value = Number(e.target.value);
-                  if (value >= 1 && value <= item.product.stock) {
-                    updateCart({ _id: item._id, quantity: value });
-                  }
-                }}
-                min={1}
-                max={item.product.stock}
-              />
+
+<input
+  type="number"
+  value={item.quantity}
+  className="w-16 p-1.5 text-center bg-bg-primary border border-gray-200 dark:border-gray-700 rounded-lg focus:border-red-500 outline-none text-text-primary transition-colors text-sm"
+  onChange={(e) => {
+    const value = Number(e.target.value);
+    if (value > item.product.stock) {
+      toast.error(`Only ${item.product.stock} items available in stock`, { duration: 3000 });
+      return;
+    }
+    if (value >= 1) {
+      updateCart({ _id: item._id, quantity: value });
+    }
+  }}
+  min={1}
+/>
             </div>
 
             {/* Row subtotal */}
