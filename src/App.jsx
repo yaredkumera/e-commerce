@@ -1,8 +1,9 @@
+import {Toaster} from "react-hot-toast"
 import Footer from "./Footer/footer";
 import Header from "./Header/header";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./NotFoundPage/NotFound";
-import BodyAbout from "./About/bodyAbout";
+import  BodyAbout from "./About/bodyAbout";
 import MainContact from "./Contact/MainContact";
 import MainSignUP from "./SignUp/MainSignUP";
 import MainLogin from "./Login/MainLogin";
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <Toaster position="top-right" autoClose={3000} />
     </div>
   );
 }

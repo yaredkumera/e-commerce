@@ -1,4 +1,5 @@
-import { apiSlice } from './MainApiCall'
+// src/api/loginApi.js
+import { apiSlice } from './MainApiCall';
 
 export const loginApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,12 +12,16 @@ export const loginApi = apiSlice.injectEndpoints({
       transformResponse: (response) => ({
         success: response.success,
         message: response.message,
-        token: response.data.token,
-        user: response.data.user,
-        role:response.data.role,
+        token: response.data?.token,
+        user: response.data?.user,
+        role: response.data?.role,
+      }),
+      transformErrorResponse: (response) => ({
+        status: response.status,
+        message: response.data?.message || 'Something went wrong',
       }),
     }),
   }),
-})
+});
 
-export const { useLoginMutation } = loginApi
+export const { useLoginMutation } = loginApi; 

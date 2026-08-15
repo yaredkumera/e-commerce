@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../RTK/LoginApi";
 import { login } from "./AuthSlice";
 import InputGenerator from "../../common/InputGenerator";
-
+import toast from 'react-hot-toast';
 export default function LoginForm() {
   const [loginToAccount] = useLoginMutation();
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function LoginForm() {
   const handleLogin = async (e) => {
     if (e) e.preventDefault();
     if (!(form.email && form.password)) {
-      setError("Please fill out both fields");
+toast.error("please fill out all field",{duration:3000});
       return;
     }
     try {
