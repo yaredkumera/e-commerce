@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import NavLinks from "../../common/NavLinks";
-import { useResetPasswordMutation } from "../../RTK/PasswordApi";
+import { useResetPasswordMutation } from "../../RTK/passwordApi";
 
 function ResetPassword() {
   const { token } = useParams();
