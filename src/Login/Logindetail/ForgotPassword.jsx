@@ -1,88 +1,78 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import NavLinks from "../../common/NavLinks";
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useForgotPasswordMutation } from "../../RTK/passwordApi"
+import NavLinks from "../../common/NavLinks"
 
 function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState("")
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email) return;
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation()
 
-    setSubmitted(true);
-    console.log("Password reset link sent to:", email);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!email) {
+      setError("Please enter your email")
+      return
+    }
+
+    try {
+      await forgotPassword(email).unwrap()
+      setSent(true)
+    } catch (err) {
+      setError(err.data?.message || "Something went wrong")
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-bg-secondary text-text-primary flex flex-col overflow-x-hidden">
+    <div>
       <NavLinks />
+      <div className="max-w-md mx-auto px-4 py-16">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-text-primary">Forgot Password</h1>
 
-      <div className="flex-1 flex items-center justify-center px-4 py-8 sm:py-12">
-        <div className="w-full max-w-md">
-          {/* Header */}
-          <div className="text-center mb-6 sm:mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold mb-2">Forgot Password?</h1>
-            <p className="text-xs sm:text-sm text-gray-500 max-w-xs mx-auto">
-              No worries. Enter your email and we'll help you reset your password.
+        {sent ? (
+          <p className="text-gray-500 text-sm mt-4">
+            If that email exists, a reset link has been sent. Check your inbox.
+          </p>
+        ) : (
+          <>
+            <p className="text-gray-500 text-sm mb-8">
+              Enter your account email and we'll send you a link to reset your password.
             </p>
-          </div>
 
-          {/* Form Card */}
-          <div className="bg-bg-primary border border-gray-200 dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm">
-            {submitted ? (
-              <div className="text-center py-4 space-y-4">
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-950 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto text-xl">
-                  ✓
-                </div>
-                <p className="text-sm font-medium text-text-primary">
-                  Reset link sent! Please check your inbox at <span className="font-semibold">{email}</span>.
+            <form onSubmit={handleSubmit} className="grid gap-6">
+              {error && (
+                <p className="text-red-600 text-sm font-medium bg-red-50 dark:bg-red-950/40 p-3 rounded-lg border border-red-200 dark:border-red-800">
+                  {error}
                 </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="text-xs text-[#DB4444] underline font-medium cursor-pointer"
-                >
-                  Send to a different email
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="grid gap-5">
-                <div>
-                  <label className="block mb-2 text-xs sm:text-sm font-medium text-text-primary">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                    className="w-full px-4 py-3 rounded-lg bg-bg-secondary text-text-primary border border-gray-200 dark:border-gray-800 outline-none focus:border-[#DB4444] transition-colors text-xs sm:text-sm"
-                  />
-                </div>
+              )}
 
-                <button
-                  type="submit"
-                  className="w-full py-3 rounded-lg bg-[#DB4444] text-white font-semibold text-xs sm:text-sm hover:bg-red-600 transition-colors shadow-sm cursor-pointer"
-                >
-                  Send Reset Link
-                </button>
-              </form>
-            )}
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border-b border-gray-300 dark:border-gray-700 bg-transparent outline-none py-2.5 w-full focus:border-[#DB4444] transition-colors text-text-primary"
+              />
 
-            <div className="text-center mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
-              <NavLink
-                to="/login"
-                className="text-xs sm:text-sm font-medium text-[#DB4444] hover:underline inline-flex items-center gap-1"
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="bg-[#DB4444] text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors disabled:opacity-50"
               >
-                ← Back to Login
-              </NavLink>
-            </div>
-          </div>
-        </div>
+                {isLoading ? "Sending..." : "Send Reset Link"}
+              </button>
+            </form>
+          </>
+        )}
+
+        <p className="text-center text-sm text-gray-500 mt-8">
+          <Link to="/login" className="text-[#DB4444] hover:underline">Back to Log In</Link>
+        </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default ForgotPassword;
+export default ForgotPassword
