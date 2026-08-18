@@ -1,15 +1,22 @@
 import { apiSlice } from './MainApiCall'
 import toast from 'react-hot-toast'
 
+const handleToast = (defaultSuccessMsg, duration = 3000) => async (arg, { queryFulfilled }) => {
+  try {
+    const { data } = await queryFulfilled
+    toast.success(data.message || defaultSuccessMsg, { duration })
+  } catch (err) {
+    if (err.error?.status !== 401) {
+      toast.error(err.error?.data?.message || "Operation failed", { duration: 3000 })
+    }
+  }
+}
+
 export const cartApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCarts: builder.query({
       query: () => "/api/cart",
-      transformResponse: (response) => ({
-        success: response.success,
-        message: response.message,
-        cart: response.data,
-      }),
+      transformResponse: (res) => ({ success: res.success, message: res.message, cart: res.data }),
       providesTags: ['cart'],
     }),
 
@@ -19,19 +26,8 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "POST",
         body: newdata,
       }),
-      transformResponse: (response) => ({
-        success: response.success,
-        message: response.message,
-        item: response.data,
-      }),
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          toast.success(data.message || "Added to cart", { duration: 3000 });
-        } catch (err) {
-          toast.error(err.error?.data?.message || "Failed to add to cart", { duration: 3000 });
-        }
-      },
+      transformResponse: (res) => ({ success: res.success, message: res.message, item: res.data }),
+      onQueryStarted: handleToast("Added to cart", 3000),
       invalidatesTags: ['cart'],
     }),
 
@@ -41,19 +37,8 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: updated,
       }),
-      transformResponse: (response) => ({
-        success: response.success,
-        message: response.message,
-        item: response.data,
-      }),
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          toast.success(data.message || "Cart updated", { duration: 2000 });
-        } catch (err) {
-          toast.error(err.error?.data?.message || "Failed to update cart", { duration: 3000 });
-        }
-      },
+      transformResponse: (res) => ({ success: res.success, message: res.message, item: res.data }),
+      onQueryStarted: handleToast("Cart updated", 2000),
       invalidatesTags: ['cart'],
     }),
 
@@ -62,19 +47,8 @@ export const cartApi = apiSlice.injectEndpoints({
         url: `/api/cart/${id}`,
         method: "DELETE",
       }),
-      transformResponse: (response) => ({
-        success: response.success,
-        message: response.message,
-        data: response.data,
-      }),
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          toast.success(data.message || "Item removed from cart", { duration: 3000 });
-        } catch (err) {
-          toast.error(err.error?.data?.message || "Failed to remove item", { duration: 3000 });
-        }
-      },
+      transformResponse: (res) => ({ success: res.success, message: res.message, data: res.data }),
+      onQueryStarted: handleToast("Item removed from cart", 3000),
       invalidatesTags: ['cart'],
     }),
   }),

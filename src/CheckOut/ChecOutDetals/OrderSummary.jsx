@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import { useGetCartsQuery } from "../../RTK/CartApi";
 import { useCreateOrderMutation } from "../../RTK/orderApi";
 import { useInitializeChapaPaymentMutation } from "../../RTK/ChapaApi";
@@ -78,10 +78,10 @@ function OrderSummary({ form }) {
       !phoneNumber ||
       !email
     ) {
+      toast.error("Please fill out all required billing fields",{duration:3000})
       setError(
         "Please fill out all required billing fields"
       );
-
       return;
     }
 
@@ -92,14 +92,9 @@ function OrderSummary({ form }) {
         ...form,
         paymentMethod,
       }).unwrap();
-
-      console.log(
-        "Order created:",
-        result
-      );
+toast.success("Order created:",{duration:4000})
 
       const newOrder = result.data;
-
      
 
       if (paymentMethod === "cod") {
@@ -113,7 +108,7 @@ function OrderSummary({ form }) {
         await initializeChapaPayment(
           newOrder._id
         ).unwrap();
-
+toast.success("Chapa initialization:",{duration:3000})
       console.log(
         "Chapa initialization:",
         paymentResult
@@ -126,17 +121,20 @@ function OrderSummary({ form }) {
         paymentResult.data.checkoutUrl;
 
       if (!checkoutUrl) {
+        toast.error("Chapa checkout URL was not returned",{duration:3000})
+
         throw new Error(
           "Chapa checkout URL was not returned"
         );
       }
-
 
       window.location.assign(
         checkoutUrl
       );
 
     } catch (err) {
+            toast.error( "Order/payment error",{duration:3000})
+
       console.error(
         "Order/payment error:",
         err
@@ -147,6 +145,7 @@ function OrderSummary({ form }) {
         err?.message ||
         "Failed to place order"
       );
+      toast.error( "Failed to place order",{duration:3000})
     }
   };
 

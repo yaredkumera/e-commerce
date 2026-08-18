@@ -2,8 +2,9 @@ import { useGetProductQuery, useUpdateProductMutation, useDeleteProductMutation,
 import { FaEdit, FaTrash, FaPlus, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { useUploadImageMutation } from "../RTK/uploadApi";
+
 function ProductManagment() {
-  const [uploadImage, { isLoading: isUploading }] = useUploadImageMutation()
+  const [uploadImage, { isLoading: isUploading }] = useUploadImageMutation();
   const { data } = useGetProductQuery();
   const products = data?.products ?? [];
 
@@ -24,23 +25,25 @@ function ProductManagment() {
   });
 
   const handleImageUpload = async (e) => {
-  const file = e.target.files[0]
-  if (!file) return
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const formData = new FormData()
-  formData.append('image', file)
-  try {
-    const result = await uploadImage(formData).unwrap()
-    setDetails((prev) => ({ ...prev, image: result.data.url }))
-  } catch (err) {
-    console.error("Upload failed", err)
-  }
-}
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const result = await uploadImage(formData).unwrap();
+      setDetails((prev) => ({ ...prev, image: result.data.url }));
+    } catch (err) {
+      console.error("Upload failed", err);
+    }
+  };
+
   const resetForm = () => {
     setDetails({ name: "", description: "", category: "", price: "", rating: "", stock: "", image: "" });
     setEditingId(null);
     setIsOpen(false);
   };
+
   const handleOpenAddModal = () => {
     setEditingId(null);
     setDetails({ name: "", description: "", category: "", price: "", rating: "", stock: "", image: "" });
@@ -87,7 +90,6 @@ function ProductManagment() {
 
   return (
     <div className="w-full max-w-full">
-      {/* Header & Add Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold">Products</h1>
@@ -104,7 +106,6 @@ function ProductManagment() {
         </button>
       </div>
 
-      {/* Product Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
         {products.map((elem) => (
           <div
@@ -118,7 +119,6 @@ function ProductManagment() {
                     New
                   </p>
                 )}
-                {/* Edit Anchor Button */}
                 <a
                   href="#edit-form"
                   onClick={(e) => {
@@ -148,16 +148,13 @@ function ProductManagment() {
         ))}
       </div>
 
-      {/* POPUP MODAL OVERLAY */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fadeIn">
-          {/* Modal Card */}
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-xs transition-all">
           <div
             id="edit-form"
-            className="bg-bg-secondary w-full max-w-xl rounded-xl border border-gray-200 dark:border-gray-800 shadow-2xl p-5 sm:p-6 max-h-[90vh] overflow-y-auto relative"
+            className="bg-bg-secondary w-full sm:max-w-xl rounded-t-2xl sm:rounded-xl border border-gray-200 dark:border-gray-800 shadow-2xl flex flex-col max-h-[90vh] sm:max-h-[85vh] overflow-hidden transition-all"
           >
-            {/* Header & Close Button */}
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-800">
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200 dark:border-gray-800 shrink-0">
               <h2 className="text-base sm:text-lg font-bold text-text-primary">
                 {editingId ? "Edit Product Details" : "Add New Product"}
               </h2>
@@ -169,109 +166,110 @@ function ProductManagment() {
               </button>
             </div>
 
-            {/* Input Form */}
-            <form onSubmit={handleAddOrUpdate} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
-                  Product name
-                </label>
-                <input
-                  placeholder="e.g. Wireless Gamepad"
-                  name="name"
-                  value={details.name}
-                  onChange={handleOnchange}
-                  className={inputStyle}
-                  required
-                />
-              </div>
-              <div>
-                <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
-                  Category
-                </label>
-                <input
-                  placeholder="e.g. Electronics"
-                  value={details.category}
-                  onChange={handleOnchange}
-                  name="category"
-                  className={inputStyle}
-                  required
-                />
-              </div>
-              <div>
-                <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
-                  Price ($)
-                </label>
-                <input
-                  placeholder="0.00"
-                  type="number"
-                  value={details.price}
-                  onChange={handleOnchange}
-                  name="price"
-                  className={inputStyle}
-                  required
-                />
-              </div>
-              <div>
-                <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
-                  Stock quantity
-                </label>
-                <input
-                  placeholder="0"
-                  type="number"
-                  value={details.stock}
-                  onChange={handleOnchange}
-                  name="stock"
-                  className={inputStyle}
-                  required
-                />
-              </div>
+            <div className="overflow-y-auto p-4 sm:p-6 space-y-4">
+              <form id="product-form" onSubmit={handleAddOrUpdate} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
+                    Product name
+                  </label>
+                  <input
+                    placeholder="e.g. Wireless Gamepad"
+                    name="name"
+                    value={details.name}
+                    onChange={handleOnchange}
+                    className={inputStyle}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
+                    Category
+                  </label>
+                  <input
+                    placeholder="e.g. Electronics"
+                    value={details.category}
+                    onChange={handleOnchange}
+                    name="category"
+                    className={inputStyle}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
+                    Price ($)
+                  </label>
+                  <input
+                    placeholder="0.00"
+                    type="number"
+                    value={details.price}
+                    onChange={handleOnchange}
+                    name="price"
+                    className={inputStyle}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
+                    Stock quantity
+                  </label>
+                  <input
+                    placeholder="0"
+                    type="number"
+                    value={details.stock}
+                    onChange={handleOnchange}
+                    name="stock"
+                    className={inputStyle}
+                    required
+                  />
+                </div>
 
-<div className="col-span-2">
-  <label className="text-sm font-medium text-gray-500 mb-1.5 block">Product image</label>
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleImageUpload}
-    className={inputStyle}
-  />
-  {isUploading && <p className="text-sm text-gray-500 mt-1">Uploading...</p>}
-  {details.image && (
-    <img src={details.image} alt="preview" className="w-20 h-20 object-contain mt-2 rounded-md border border-gray-200 dark:border-gray-700" />
-  )}
-</div>
+                <div className="sm:col-span-2">
+                  <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">Product image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className={inputStyle}
+                  />
+                  {isUploading && <p className="text-xs sm:text-sm text-gray-500 mt-1">Uploading...</p>}
+                  {details.image && (
+                    <img src={details.image} alt="preview" className="w-16 h-16 sm:w-20 sm:h-20 object-contain mt-2 rounded-md border border-gray-200 dark:border-gray-700" />
+                  )}
+                </div>
 
-              <div className="sm:col-span-2">
-                <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
-                  Description
-                </label>
-                <textarea
-                  placeholder="Brief product description..."
-                  value={details.description}
-                  onChange={handleOnchange}
-                  name="description"
-                  rows={3}
-                  className={inputStyle}
-                  required
-                />
-              </div>
+                <div className="sm:col-span-2">
+                  <label className="text-xs sm:text-sm font-medium text-gray-500 mb-1 block">
+                    Description
+                  </label>
+                  <textarea
+                    placeholder="Brief product description..."
+                    value={details.description}
+                    onChange={handleOnchange}
+                    name="description"
+                    rows={3}
+                    className={inputStyle}
+                    required
+                  />
+                </div>
+              </form>
+            </div>
 
-              {/* Action Buttons */}
-              <div className="sm:col-span-2 flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-                <button
-                  type="button"
-                  onClick={resetForm}
-                  className="border border-gray-200 dark:border-gray-800 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-gray-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-[#DB4444] text-white px-5 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-red-600 transition-colors cursor-pointer"
-                >
-                  {editingId ? "Update Product" : "Add Product"}
-                </button>
-              </div>
-            </form>
+            <div className="flex items-center justify-end gap-3 p-4 sm:p-5 border-t border-gray-100 dark:border-gray-800 bg-bg-secondary shrink-0">
+              <button
+                type="button"
+                onClick={resetForm}
+                className="w-full sm:w-auto border border-gray-200 dark:border-gray-800 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-medium text-gray-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                form="product-form"
+                className="w-full sm:w-auto bg-[#DB4444] text-white px-5 py-2.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-red-600 transition-colors cursor-pointer"
+              >
+                {editingId ? "Update Product" : "Add Product"}
+              </button>
+            </div>
           </div>
         </div>
       )}

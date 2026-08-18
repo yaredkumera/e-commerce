@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGetAllOrdersQuery, useUpdateOrderStatusMutation } from "../RTK/AdminApi";
+import {useGetAllOrdersQuery,useUpdateOrderStatusMutation} from "../RTK/AdminApi.js"
 import { FiChevronDown, FiPackage } from "react-icons/fi";
 
 const statusStyles = {
