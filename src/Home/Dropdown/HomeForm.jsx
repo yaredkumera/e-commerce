@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import StateControler from "./StateControler";
 import { FiChevronRight } from "react-icons/fi";
 
-const Mag = ["/FirstHomePageIhmage.png", "/About/TeamImagve/Tom.png", "/About/TeamImagve/Emma.png"];
+const Mag = ["/FirstHomePageIhmage.png", "/newArival1.png", "/newArival3.png", "/newArival3.png"];
 const categories = [
   { name: "Woman's Fashion", hasArrow: true, submenu: ["Dresses", "Tops", "Shoes"] },
   { name: "Men's Fashion", hasArrow: true, submenu: ["Shirts", "Pants", "Shoes"] },

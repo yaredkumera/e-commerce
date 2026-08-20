@@ -4,10 +4,13 @@ import { useState } from "react";
 import { useSignupMutation } from "../RTK/SignUpApi";
 import GoogleButton from "./GoogleButton";
 import toast from 'react-hot-toast';
-
+import { useDispatch } from "react-redux";
+import { login } from "../Login/Logindetail/AuthSlice";
 function SignupForm() {
+
+  const dispatch=useDispatch()
   const navigate = useNavigate();
-  const [sendToDataBase] = useSignupMutation();
+  const [sendToDataBase,{isLoading,isError}] = useSignupMutation();
   const [signupform, setSignupform] = useState({
     fullName: "",
     email: "",
@@ -29,10 +32,21 @@ function SignupForm() {
     }
 
     try {
-      await sendToDataBase(signupform).unwrap();
-      toast.success("Account created successfully!", { duration: 3000 });
+       
+            const data = await sendToDataBase(signupform).unwrap();
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("currentUser", data.user);
+      localStorage.setItem("role", data.role);
+      dispatch(login(data.user));
+
+      toast.success("Account created Logged in successfully!", { duration: 3000 });
       setSignupform({ fullName: "", email: "", password: "" });
+      if(data.role==="admin"){
+          navigate("/admin"); 
+      }else{
       navigate("/"); 
+
+      }
     } catch (err) {
       toast.error(err.data?.message || "Registration failed", { duration: 3000 });
     }
@@ -91,7 +105,7 @@ function SignupForm() {
               onClick={checkAndSendFormToDB}
               className="bg-[#DB4444] text-white py-3 rounded-lg w-full hover:bg-red-600 font-semibold text-xs sm:text-sm transition-colors cursor-pointer shadow-sm mt-2"
             >
-              Create Account
+              {`${isLoading?"Creating...":"Create Account"}`}
             </button>
 
             <GoogleButton />
