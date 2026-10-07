@@ -30,7 +30,7 @@ function ContactForm() {
         type: "error",
         msg: err?.data?.message || "Something went wrong. Please try again.",
       });
-    }
+    } 
   };
 
   const inputStyle =
@@ -46,7 +46,7 @@ function ContactForm() {
           <p className="text-lg sm:text-xl font-bold text-text-primary">Call To Us</p>
         </div>
         <p className="text-xs sm:text-sm text-gray-500">We are available 24/7, 7 days a week.</p>
-        <p className="text-xs sm:text-sm font-medium text-text-primary mb-2">Phone: +8801611112222</p>
+        <p className="text-xs sm:text-sm font-medium text-text-primary mb-2">Phone: +251945944367</p>
 
         <hr className="border-gray-200 dark:border-gray-800 my-2" />
 
@@ -58,14 +58,14 @@ function ContactForm() {
         </div>
         <p className="text-xs sm:text-sm text-gray-500">Fill out our form and we will contact you within 24 hours.</p>
         <p className="text-xs sm:text-sm font-medium text-text-primary">Emails: customer@exclusive.com</p>
-        <p className="text-xs sm:text-sm font-medium text-text-primary">Emails: support@exclusive.com</p>
-      </div>
+        <p className="text-xs sm:text-sm font-medium text-text-primary">Emails: kumerayared5@gmail.com</p>
+      </div>   
 
       <div className="bg-bg-secondary border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm py-6 px-6 sm:px-8 flex flex-col justify-between">
         <form onSubmit={handleSubmit} className="flex flex-col h-full justify-between gap-6">
           <div className="space-y-4">
             {status.msg && (
-              <div
+              <div 
                 className={`p-3 rounded-lg text-sm font-medium ${
                   status.type === "success"
                     ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"

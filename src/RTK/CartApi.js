@@ -21,8 +21,8 @@ export const cartApi = apiSlice.injectEndpoints({
     }),
 
     createCart: builder.mutation({
-      query: (newdata) => ({
-        url: "/api/cart",
+       query: (newdata) => ({ 
+        url: "/api/cart", 
         method: "POST",
         body: newdata,
       }),
@@ -44,9 +44,9 @@ export const cartApi = apiSlice.injectEndpoints({
 
     deleteCart: builder.mutation({
       query: (id) => ({
-        url: `/api/cart/${id}`,
+        url: `/api/cart/${id}`, 
         method: "DELETE",
-      }),
+    }),
       transformResponse: (res) => ({ success: res.success, message: res.message, data: res.data }),
       onQueryStarted: handleToast("Item removed from cart", 3000),
       invalidatesTags: ['cart'],
