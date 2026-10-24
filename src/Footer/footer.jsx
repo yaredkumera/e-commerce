@@ -19,7 +19,7 @@ function Footer() {
     {
       name: "TikTok",
       icon: <FaTiktok />,
-      url: "https://tiktok.com/@yourusername",
+      url: "https://tiktok.com/@yared.kumera",
     },
     {
       name: "Instagram",
