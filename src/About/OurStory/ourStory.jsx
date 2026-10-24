@@ -1,30 +1,37 @@
 function OurStory() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center my-8 md:my-12">
-      <div className="flex justify-center items-center px-4 sm:px-8 md:px-16">
-        <div className="flex flex-col text-left">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Our Story</h1>
-          <p className="mb-4 text-sm sm:text-base leading-relaxed">
-            Launched in 2015, Exclusive is South Asia's premier online shopping
-            marketplace with an active presence in Bangladesh. Supported by a
-            wide range of tailored marketing, data, and service solutions,
-            Exclusive has 10,500 sellers and 300 brands and serves 3 million
-            customers across the region.
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center my-8 md:my-12 max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
+      
+      {/* Story Text Content */}
+      <div className="flex justify-center items-center">
+        <div className="flex flex-col text-left space-y-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            Our Story
+          </h1>
+          
+          <p className="text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+            Founded with a vision to revolutionize digital commerce in Ethiopia, 
+            our platform bridges local merchants, artisans, and top brands directly to customers across the country. 
+            We empower businesses with modern digital tools, seamless local payment integrations, and reliable door-to-door delivery.
           </p>
-          <p className="text-sm sm:text-base leading-relaxed">
-            Exclusive has more than 1 million products to offer, growing very
-            fast. Exclusive offers a diverse assortment of categories ranging
-            from consumer electronics to fashion.
+          
+          <p className="text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+            From the latest consumer electronics and fashion to everyday essentials, 
+            we offer a rapidly growing catalog of quality products tailored for Ethiopian shoppers—making online shopping effortless, secure, and accessible to everyone.
           </p>
         </div>
       </div>
-      <div className="w-full h-auto px-4 sm:px-0">
+
+      {/* Side Banner / Image */}
+      <div className="w-full h-auto flex justify-center">
         <img 
-          src="Side Image.png" 
-          alt="Our Story" 
-          className="h-auto w-full max-h-[400px] object-cover rounded-md" 
+          src="/Side Image.png" 
+          alt="Our Story - E-Commerce in Ethiopia" 
+          loading="lazy"
+          className="h-full w-full max-h-[420px] object-cover rounded-xl shadow-sm border border-gray-100 dark:border-gray-800" 
         />
       </div>
+
     </div>
   );
 }
