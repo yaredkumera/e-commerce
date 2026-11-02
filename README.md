@@ -2,7 +2,7 @@
 
 A responsive online store built with React and Vite. Customers can browse products, manage a cart and wishlist, pay online or with cash on delivery, and track their orders. Admins manage products, orders and users.
 
-**Live demo:** TODO_PASTE_VERCEL_URL
+**Live demo:** [Frontend](https://e-commerce-pqol.vercel.app)
 **Backend repository:** TODO_PASTE_BACKEND_REPO_URL
 
 > The backend runs on a free hosting plan, so the first request after a quiet period can take up to a minute.
