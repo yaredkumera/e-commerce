@@ -2,8 +2,8 @@
 
 A responsive online store built with React and Vite. Customers can browse products, manage a cart and wishlist, pay online or with cash on delivery, and track their orders. Admins manage products, orders and users.
 
-**Live demo:** TODO_PASTE_VERCEL_URL
-**Backend repository:** TODO_PASTE_BACKEND_REPO_URL
+**Live demo:** [Frontend](https://e-commerce-pqol.vercel.app)
+**Backend repository:**[ Backend](https://e-commerce-backend-vgk5.onrender.com)
 
 > The backend runs on a free hosting plan, so the first request after a quiet period can take up to a minute.
 
@@ -11,7 +11,7 @@ A responsive online store built with React and Vite. Customers can browse produc
 
 | Home | Cart | Checkout |
 | --- | --- | --- |
-| ![Home](docs/screenshots/Home.png) | ![Cart](docs/screenshots/cart.png) | ![Checkout](docs/screenshots/checkout-E.png) |
+| ![Home](docs/screenshots/Home.png) | ![Cart](docs/screenshots/cart.png) | ![Checkout](docs/screenshots/Checkout-E.png) |
 
 ## Features
 
@@ -124,5 +124,6 @@ Online payments go through Chapa. The server verifies each payment with Chapa be
 
 ## Author
 
-Yared Kumera, [GitHub](https://github.com/yaredkumera)
-[UpWork](https://www.upwork.com/freelancers/~0191f91e607d8cfce6)
+Yared Kumera
+
+[Yared Kumera](https://github.com/yaredkumera) — [GitHub](https://github.com/yaredkumera) | [UpWork](https://www.upwork.com/freelancers/~0191f91e607d8cfce6)
